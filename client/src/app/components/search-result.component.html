@@ -1,4 +1,27 @@
-<div *ngIf="restaurants">
+<body>
+    <main class="list">
+        <div class="container" *ngIf="restaurants">
+            <div class="card mb-3" style="max-width: 70%" *ngFor="let r of restaurants" 
+            (click)="onSelect(r.placeId)">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{{r.photoRef}}">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h2 class="card-title">{{r.name}}</h2>
+                            <p class="card-text"> {{r.address}}</p>
+                            <p class="card-text">Rating: {{r.rating}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+<!-- <div *ngIf="restaurants">
     <div *ngFor="let r of restaurants" (click)="onSelect(r.placeId)">
         <table>
             <tr>
@@ -14,4 +37,4 @@
             </tr>
         </table>
     </div>
-</div>
+</div>  -->

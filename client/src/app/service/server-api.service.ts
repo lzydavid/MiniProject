@@ -28,7 +28,7 @@ export class ServerApiService {
 
   getRestaurantDetails(placeId:string):Promise<PlaceDetails> {
 
-    const url = this.SERVER_API_URL + '/' + placeId
+    const url = this.SERVER_API_URL + '/search/' + placeId
 
     return lastValueFrom(this.httpClient.get<PlaceDetails>(url))
   }

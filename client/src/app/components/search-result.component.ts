@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Restaurant } from '../model';
+import { Restaurant,restaurants } from '../model';
 
 @Component({
   selector: 'app-search-result',
@@ -11,7 +11,9 @@ import { Restaurant } from '../model';
 })
 export class SearchResultComponent implements OnInit{
 
-  restaurants!:Restaurant[]
+  // restaurants!:Restaurant[]
+  restaurants:Restaurant[] = restaurants
+  
   nextPageToken!:string
 
   constructor(private generalSvc:SvcService,private apiSvc:ServerApiService,private router:Router) {}

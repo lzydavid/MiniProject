@@ -12,6 +12,7 @@ import { SearchResultComponent } from './components/search-result.component';
 import { PlaceDetailsComponent } from './components/place-details.component';
 import { UserLoginPageComponent } from './components/user-login-page.component';
 import { RegDialogComponent } from './components/dialog/reg-dialog.component';
+import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { RegDialogComponent } from './components/dialog/reg-dialog.component';
     SearchResultComponent,
     PlaceDetailsComponent,
     UserLoginPageComponent,
-    RegDialogComponent
+    RegDialogComponent,
+    googleImgPipe
   ],
   imports: [
     BrowserModule,
