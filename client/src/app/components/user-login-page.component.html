@@ -7,6 +7,10 @@
     <div class="col-4">
       <form [formGroup]="LoginForm" (ngSubmit)="onSubmitLogin()">
         <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+
+        <div *ngIf="!LoginStatus">
+          {{LoginMessage}}
+        </div>
     
         <div class="form-floating mb-3">
           <input type="email" class="form-control" placeholder="name@example.com" formControlName="email">
@@ -16,7 +20,7 @@
           <input type="password" class="form-control" placeholder="Password" formControlName="password">
           <label for="floatingPassword">Password</label>
         </div>
-  
+       
         <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
       </form>
     </div>

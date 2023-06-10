@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { ServerApiService } from '../service/server-api.service';
-import { RegisterResult, UserLogin } from '../model';
+import { RegisterResult, UserAccount, UserLogin } from '../model';
 import { RegDialogComponent } from './dialog/reg-dialog.component';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 
@@ -17,6 +17,8 @@ export class UserLoginPageComponent implements OnInit{
   RegStatus!:boolean
   RegMessage!:string
   LoginStatus!:boolean
+  LoginMessage!:string
+  LoginUser!:UserAccount
 
   signUp:boolean = false
 
@@ -40,7 +42,6 @@ export class UserLoginPageComponent implements OnInit{
         console.info(this.RegMessage)
 
         if(this.RegStatus){
-          console.info('hi')
           const dialogConfig = new MatDialogConfig()
           dialogConfig.data = this.RegMessage
           this.matDialog.open(RegDialogComponent,dialogConfig)
@@ -57,6 +58,12 @@ export class UserLoginPageComponent implements OnInit{
       (result) =>{
         this.LoginStatus = result['status']
         console.info(this.LoginStatus)
+        if(!this.LoginStatus){
+          this.LoginMessage=result['message']
+        }else{
+          this.LoginUser = result['account']
+          console.info(this.LoginUser)
+        }
       }
     )   
   }
