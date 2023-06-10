@@ -1,0 +1,85 @@
+<body class="text-center">
+    
+<main class="form-signin">
+ <div class="container">
+  <div class="row justify-content-center">
+    <!-- SIGN IN -->
+    <div class="col-4">
+      <form [formGroup]="LoginForm" (ngSubmit)="onSubmitLogin()">
+        <h1 class="h3 mb-3 fw-normal">Sign In</h1>
+    
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control" placeholder="name@example.com" formControlName="email">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" placeholder="Password" formControlName="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+  
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="col-5" *ngIf="signUp; else SignUpNow">
+      <form [formGroup]="RegisterForm" (ngSubmit)="onSubmitReg()">
+        <h1 class="h3 mb-3 fw-normal">Register</h1>
+    
+        <div class="row justify-content-around">
+          <div class="col-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+              <label for="floatingInput">First Name</label>
+            </div>
+          </div>
+          <div class="col-5">
+            <div class="form-floating">
+              <input type="email" class="form-control" placeholder="Last Name" formControlName="lastName">
+              <label for="floatingInput">Last Name</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center" >
+          <div class="col-11">
+            <div *ngIf="!RegStatus">
+              {{RegMessage}}
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" placeholder="Last Name" formControlName="email">
+              <label for="floatingInput">Email</label>
+            </div>
+          </div>
+          <div class="col-11">
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" placeholder="Last Name" formControlName="password">
+              <label for="floatingInput">Password</label>
+            </div>
+          </div>
+          <div class="col-11">
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" placeholder="Last Name" formControlName="confirmPassword">
+              <label for="floatingInput">Re-Enter Password</label>
+            </div>
+          </div>
+
+          <div class="col-11">
+            <button class="w-100 btn btn-lg btn-primary"  type="submit" [disabled]="isFormInvalid()">Register</button>
+          </div>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
+ </div>
+</main>
+
+<ng-template #SignUpNow>
+  <div class="col-5 d-flex justify-content-center">
+    <h1>Have No Account? <a (click)="signup()">Sign Up Now</a></h1>
+  </div>
+</ng-template>
+    
+  </body>

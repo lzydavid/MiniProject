@@ -1,0 +1,55 @@
+<div>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <h2>{{placeDetails.name}}</h2>
+                </td>
+                <td>
+                    {{placeDetails.address}}
+                </td>
+                <td *ngIf="placeDetails.openNow; else closed">
+                    <p>Open</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div *ngFor="let o of placeDetails.opening_hours">
+                     <p>
+                         {{o}}
+                     </p>
+                    </div>
+                 </td>
+                 <td>
+                     price level: {{placeDetails.priceLevel}}
+                 </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<h3>Reviews</h3>
+<div *ngFor="let r of placeDetails.reviews">
+    <table>
+        <tr>
+            <td>
+                {{r.author}}
+            </td>
+            <td>
+                {{r.time}}
+            </td>
+            <td>
+                {{r.rating}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{r.description}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<ng-template #closed>
+    <p>Closed</p>
+</ng-template>

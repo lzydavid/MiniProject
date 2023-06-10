@@ -1,0 +1,25 @@
+.body{
+    display: flex;
+    flex-direction: column;
+}
+
+.navgation{
+    align-items: center;
+    color: black;  
+}
+
+.con{
+    display: flex;
+    justify-content: space-between;
+    gap: 200px;
+    padding: 30px;
+}
+
+.login{
+    display: flex;
+    gap: 15px;
+}
+
+.main-body{
+    height: 90%;
+}

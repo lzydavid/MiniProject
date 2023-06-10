@@ -1,0 +1,23 @@
+body{
+    display: flex;
+    justify-content: center;
+}
+
+.search-body{
+    /* background-image: url(src\assets\bg.jpeg); */
+    background-size: cover;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-input{
+    padding: 10px;
+    background-color: whitesmoke;
+}
+
+.form-body{
+    display: flex;
+    flex-direction:row;
+}

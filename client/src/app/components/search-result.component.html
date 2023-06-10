@@ -1,0 +1,17 @@
+<div *ngIf="restaurants">
+    <div *ngFor="let r of restaurants" (click)="onSelect(r.placeId)">
+        <table>
+            <tr>
+                <td>
+                    {{r.name}}
+                </td>
+                <td>
+                    {{r.address}}
+                </td>
+                <td>
+                    {{r.rating}}
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
