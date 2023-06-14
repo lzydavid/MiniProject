@@ -1,4 +1,5 @@
 import { Component,OnInit } from '@angular/core';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,21 @@ import { Component,OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
 
+  isLoggedIn!:boolean
+
+  constructor(private authSvc:AuthService) {
+    this.authSvc.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+
   ngOnInit(): void {
-      this.getCurrentLocation()
+    this.getCurrentLocation()
+    console.info(">>> is logged in" + this.isLoggedIn)
+  }
+
+  logout(){
+    this.authSvc.updateLoggedStatus(false)
   }
 
   getCurrentLocation() {

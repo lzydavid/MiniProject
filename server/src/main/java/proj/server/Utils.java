@@ -51,6 +51,10 @@ public class Utils {
         r.setAddress(o.getString("formatted_address"));
         r.setName(o.getString("name"));
 
+        if(o.containsKey("price_level")){
+            r.setPriceLevel(o.getInt("price_level"));
+        }
+
         if(o.containsKey("rating")){
             r.setRating(o.getJsonNumber("rating").bigDecimalValue().floatValue());
         }
@@ -86,7 +90,11 @@ public class Utils {
             
             if(results.containsKey("price_level")){
                 p.setPriceLevel(results.getInt("price_level"));
-            }else{p.setPriceLevel(0);}
+            }
+
+            if(results.containsKey("user_ratings_total")){
+                p.setNumOfUserRating(results.getInt("user_ratings_total"));
+            }
 
             if(results.containsKey("current_opening_hours")){
                 JsonObject currOpHrs = results.getJsonObject("current_opening_hours");
@@ -116,6 +124,7 @@ public class Utils {
                     r.setDescription(rw.getString("text"));
                     r.setRating(rw.getInt("rating"));
                     r.setTime(rw.getString("relative_time_description"));
+                    r.setProfileUrl(rw.getString("profile_photo_url"));
                     reviews.add(r);
                 }
             }

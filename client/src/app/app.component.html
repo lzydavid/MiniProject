@@ -1,21 +1,42 @@
 <body>
-  <div class="navgation">
-    <div class="con" >
-      <div>
-        <a [routerLink]="['/']">logo</a>
-      </div>
-      <div class="login">
-        <div>
-          <a [routerLink]="['/login']">Login</a>
-        </div>
-      </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mt-4">
+    <div class="container">
+      <a class="navbar-brand" [routerLink]="['/']">Home</a>
+      
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn; else acc">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/login']">Sign up or Login</a>
+        </li>
+      </ul>
+
     </div>
-  </div>
-  
+  </nav>  
   <div class="main-body">
-    <app-search-result></app-search-result>
+    <app-place-details></app-place-details>
   </div>
+  <!-- <footer>
+    my footer
+  </footer> -->
 </body>
-<footer>
-  my footer
-</footer>
+
+<ng-template #acc>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg>  &nbsp; Account
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="#">Option 1</a></li>
+          <li><a class="dropdown-item" href="#">Option 2</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" (click)="logout()">Log out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</ng-template>

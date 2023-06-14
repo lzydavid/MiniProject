@@ -15,6 +15,7 @@ public class Reviews {
     private Integer rating;
     private String description;
     private String time;
+    private String profileUrl;
     
     public JsonObject toJSON(){
         return Json.createObjectBuilder()
@@ -22,6 +23,7 @@ public class Reviews {
             .add("rating", getRating())
             .add("description",getDescription())
             .add("time", getTime())
+            .add("profileUrl", getProfileUrl())
             .build();
     }
 }

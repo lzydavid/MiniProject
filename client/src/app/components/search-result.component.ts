@@ -11,33 +11,25 @@ import { Restaurant,restaurants } from '../model';
 })
 export class SearchResultComponent implements OnInit{
 
-  // restaurants!:Restaurant[]
-  restaurants:Restaurant[] = restaurants
+  restaurants!:Restaurant[]
   
   nextPageToken!:string
 
-  constructor(private generalSvc:SvcService,private apiSvc:ServerApiService,private router:Router) {}
+  constructor(private svc:SvcService,private router:Router) {}
 
   ngOnInit(): void {
-    const FormValue = this.generalSvc.FormValue
-    const query = FormValue['query']
-    const location = FormValue['location']
-    console.info('>>>form value'+query,location)
-
-    this.apiSvc.getResultFromSearch(query,location).then(
-      result=>{
-        this.restaurants = result.results
-        console.info(this.restaurants)
-
-        this.nextPageToken = result.nextPageToken
-        console.info(this.nextPageToken)
-      }
-    )
+    this.restaurants = restaurants
+    // this.restaurants = this.svc.restaurants
+    console.info(">>> search result"+ this.restaurants)
   }
 
-  onSelect(placeId:string){
-    console.info(placeId)
-    this.generalSvc.placeId=placeId
+  onSelect(r:Restaurant){
+    console.info(r)
+    this.svc.restaurantSelectedToView = r
     this.router.navigate(['/details'])
+  }
+
+  getIconArray(number: number): number[] {
+    return Array(number).fill(0).map((_, index) => index + 1);
   }
 }

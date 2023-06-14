@@ -19,10 +19,14 @@ public class PlaceDetails {
     private String name;
     private String address;
     private Boolean openNow;
+    private Boolean delivery = false;
+    private Boolean dineIn = false;
     private String[] openingHours;
     private String phoneNo = "-";
     private String website = "-";
-    private Integer priceLevel = 0;
+    private Integer priceLevel = -1;
+    private Integer numOfUserRating = -1;
+    private Float rating = 0.0f;
     private List<Reviews> reviews;
 
     public JsonObject toJSON() {
@@ -44,9 +48,13 @@ public class PlaceDetails {
             .add("name", getName())
             .add("address", getAddress())
             .add("openNow", getOpenNow())
+            .add("delivery", getDelivery())
+            .add("dineIn", getDineIn())
             .add("phoneNo", getPhoneNo())
             .add("website",getWebsite())
             .add("priceLevel", getPriceLevel())
+            .add("numOfUserRating", getNumOfUserRating())
+            .add("rating", getRating())
             .add("opening_hours", openingHours)
             .add("reviews", reviews)
             .build();

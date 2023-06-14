@@ -16,6 +16,7 @@ public class Restaurant {
     private Float rating = 0.0f; //google rating
     private String photoRef = "none";
     private String placeId;
+    private Integer priceLevel = -1;
 
     public JsonObject toJSON(){
 
@@ -25,6 +26,7 @@ public class Restaurant {
         .add("rating", getRating())
         .add("photoRef", getPhotoRef())
         .add("placeId", getPlaceId())
+        .add("priceLevel", getPriceLevel())
         .build();
     }
 

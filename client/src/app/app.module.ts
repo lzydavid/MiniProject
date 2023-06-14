@@ -13,6 +13,9 @@ import { PlaceDetailsComponent } from './components/place-details.component';
 import { UserLoginPageComponent } from './components/user-login-page.component';
 import { RegDialogComponent } from './components/dialog/reg-dialog.component';
 import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LocationDialogComponent } from './components/dialog/location-dialog.component';
+import { safePipe } from './components/custom-pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
     PlaceDetailsComponent,
     UserLoginPageComponent,
     RegDialogComponent,
-    googleImgPipe
+    googleImgPipe,
+    safePipe,
+    LocationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

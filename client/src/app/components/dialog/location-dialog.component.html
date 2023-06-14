@@ -1,0 +1,17 @@
+<div matDialogContent>
+    <h2>Select Location</h2>
+    <div class="selectregion">
+        <mat-accordion class="mat-accordion">
+          <mat-expansion-panel *ngFor="let category of categories" >
+            <mat-expansion-panel-header>
+             <p>{{ category.name }}</p>
+            </mat-expansion-panel-header>
+            <mat-nav-list>
+              <a mat-list-item *ngFor="let option of category.options" (click)="onOptionSelect(option)">
+                <p>{{ option.name }}</p>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+</div>

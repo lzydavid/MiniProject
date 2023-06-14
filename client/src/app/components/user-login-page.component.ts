@@ -4,6 +4,8 @@ import { ServerApiService } from '../service/server-api.service';
 import { RegisterResult, UserAccount, UserLogin } from '../model';
 import { RegDialogComponent } from './dialog/reg-dialog.component';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-login-page',
@@ -18,11 +20,10 @@ export class UserLoginPageComponent implements OnInit{
   RegMessage!:string
   LoginStatus!:boolean
   LoginMessage!:string
-  LoginUser!:UserAccount
 
   signUp:boolean = false
 
-  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog){}
+  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router){}
 
   ngOnInit(): void {
     this.LoginForm=this.createLoginForm()
@@ -53,7 +54,6 @@ export class UserLoginPageComponent implements OnInit{
   }
 
   onSubmitLogin(){
-
     this.apiSvc.login(this.LoginForm).then(
       (result) =>{
         this.LoginStatus = result['status']
@@ -61,8 +61,10 @@ export class UserLoginPageComponent implements OnInit{
         if(!this.LoginStatus){
           this.LoginMessage=result['message']
         }else{
-          this.LoginUser = result['account']
-          console.info(this.LoginUser)
+          this.authSvc.currentUser = result['account']
+          this.authSvc.updateLoggedStatus(true)
+          console.info('Logged in!',this.authSvc.currentUser,this.authSvc.isLoggedIn)
+          this.router.navigate(['/'])
         }
       }
     )   

@@ -1,23 +1,31 @@
 body{
     display: flex;
     justify-content: center;
-}
-
-.search-body{
-    /* background-image: url(src\assets\bg.jpeg); */
-    background-size: cover;
-    height: 100%;
-    display: flex;
-    justify-content: center;
     align-items: center;
+    height: 70vh;
 }
 
-.search-input{
-    padding: 10px;
-    background-color: whitesmoke;
+.dropdown-menu li {
+    position: relative;
+    }
+    .dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+    }
+    .dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+    }
+    .dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
 }
 
-.form-body{
-    display: flex;
-    flex-direction:row;
+.form-control{
+    height: 45px;
 }
+.btn{
+    height: 45px;
+}
+

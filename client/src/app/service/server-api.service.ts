@@ -23,7 +23,7 @@ export class ServerApiService {
       .set('query',query)
       .set('location',location)
 
-    return lastValueFrom(this.httpClient.get(this.SERVER_API_URL,{params}))
+    return lastValueFrom(this.httpClient.get(url,{params}))
   }
 
   getRestaurantDetails(placeId:string):Promise<PlaceDetails> {
