@@ -18,8 +18,8 @@ export class SearchResultComponent implements OnInit{
   constructor(private svc:SvcService,private router:Router) {}
 
   ngOnInit(): void {
-    this.restaurants = restaurants
-    // this.restaurants = this.svc.restaurants
+    // this.restaurants = restaurants
+    this.restaurants = this.svc.restaurants
     console.info(">>> search result"+ this.restaurants)
   }
 

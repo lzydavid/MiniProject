@@ -65,8 +65,11 @@ export const Region: Region[] = [
         { name: 'Bukit Panjang' },
         { name: 'Boon Lay' },
         { name: 'Pioneer' },
-        { name: 'Choa Chu Kang' },
+        { name: 'Choa Chu Kang'},
         { name: 'Clementi' },
+        { name: 'Jurong East' },
+        { name: 'Jurong West' },
+        { name: 'Tengah' },
         { name: 'Tuas' },
         { name: 'Pioneer' },
         { name: 'Pasir Laba'},
@@ -79,6 +82,7 @@ export const Region: Region[] = [
       options: [
         { name: 'Bedok' },
         { name: 'Changi' },
+        { name: 'Changi Bay' },
         { name: 'Paya Lebar' },
         { name: 'Pasir Ris' },
         { name: 'Tampines' }
@@ -133,7 +137,7 @@ export const restaurants:Restaurant[] = [
 
     {name:'W39 Bistro & Bakery',address:'39 Jln Mas Puteh, Singapore 128637',rating:2,priceLevel:2,photoRef:'AZose0k3ynI3I32SN6ssu6bdBHLinsHEYWFqRb9qGNl9HYp4QB1v5nznLP-1yHH5px7C4DoICjZzRZJ7WT8vhwc19zgz40_yKAbaW68-3bRrI2Db_20QcsaDEVJgizBsUZGzXTn4R5-kgzVaX-YHznsdjGkRAhASi5eOjQUha5VQY458V0Vz',placeId:'ChIJ6ad6tpIa2jERYXVn6uL9OjM'},
 
-    {name:'Benches Cafe',address:'93A Clementi Rd, Singapore 12978',rating:5,priceLevel:-1,photoRef:'AZose0kzKaNZ0Hp8MfDkdEi9R4-jTWbs3Bz8KcWqyqcAXvt_875l43BOGbRrA_VejRALezuxW0gBRb4NDfnZVljXgNx7_5AoByDsv0nF-_yZWQyHBpse2HUBwunU6xKNMFHor0cZqNH1Wchys46zF5VgQ5fi3lrs5rcLxQFNLiNFyF7FEf8Y',placeId:'ChIJ_8M8XRob2jERNlp5OHUVWRQ'},
+    {name:'Benches Cafe',address:'93A Clementi Rd, Singapore 12978',rating:-1,priceLevel:-1,photoRef:'AZose0kzKaNZ0Hp8MfDkdEi9R4-jTWbs3Bz8KcWqyqcAXvt_875l43BOGbRrA_VejRALezuxW0gBRb4NDfnZVljXgNx7_5AoByDsv0nF-_yZWQyHBpse2HUBwunU6xKNMFHor0cZqNH1Wchys46zF5VgQ5fi3lrs5rcLxQFNLiNFyF7FEf8Y',placeId:'ChIJ_8M8XRob2jERNlp5OHUVWRQ'},
 
     {name:'Jovis Cafe - The Dining Place',address:'104 Faber Dr, Singapore 129412',rating:4.5,priceLevel:2,photoRef:'AZose0mcpUN868RrDW5IeUSoAeAA8swvE8H2S1err2YhFTEORDjRiuEGZ-B7oeLFr4IXD_P93TUZgGlgzzDxzL8xpEbGNtDYGmOaf-nYprnRx0dwZZtOwo7exM1dKeWpCd9EzCdHPUCoWq2GpDI-FvTSIAuuRlW66BOeGNZFcHtuNiWsCgLs',placeId:'ChIJz86GbZka2jERAFWm-I-74wU'},
 

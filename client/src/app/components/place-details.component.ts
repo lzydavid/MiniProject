@@ -11,7 +11,8 @@ import { PlaceDetails ,Restaurant,placeDetailsExample } from '../model';
 export class PlaceDetailsComponent implements OnInit {
 
   private key = 'AIzaSyAKs4xwjpdFmZUq1dc8wbUeEDrcH4a14lg'
-  placeDetails:PlaceDetails = placeDetailsExample
+  placeDetails!:PlaceDetails
+  // placeDetails:PlaceDetails = placeDetailsExample
   place!:Restaurant
 
 

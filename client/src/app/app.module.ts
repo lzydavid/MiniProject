@@ -16,6 +16,8 @@ import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LocationDialogComponent } from './components/dialog/location-dialog.component';
 import { safePipe } from './components/custom-pipes/safe.pipe';
+import { RatingIconPipe } from './components/custom-pipes/rating-icon.pipe';
+import { PriceIconPipe } from './components/custom-pipes/price-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { safePipe } from './components/custom-pipes/safe.pipe';
     RegDialogComponent,
     googleImgPipe,
     safePipe,
-    LocationDialogComponent
+    LocationDialogComponent,
+    RatingIconPipe,
+    PriceIconPipe 
   ],
   imports: [
     BrowserModule,

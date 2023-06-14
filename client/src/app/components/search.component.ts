@@ -1,5 +1,5 @@
 import { Component ,OnInit, ViewChild} from '@angular/core';
-import { FormGroup,FormBuilder } from '@angular/forms';
+import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
@@ -22,12 +22,13 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.createForm()
-    console.info(this.svc.restaurants)
+    //console.info(this.svc.restaurants)
   }
 
   onSubmit(){
     const query = this.form.value['query']
-    const location = this.form.value['location']
+    const location = this.form.value['location'] || this.selectedLoc
+    console.info('>>>Form'+ query + location)
     this.apiSvc.getResultFromSearch(query,location).then(
       result=>{
         this.svc.restaurants = result.results
@@ -42,7 +43,7 @@ export class SearchComponent implements OnInit {
 
   createForm(){
     return this.fb.group({
-      query:this.fb.control<string>(''),
+      query:this.fb.control<string>('',[Validators.required]),
       location:this.fb.control<string>('')
     })
   }
@@ -54,8 +55,10 @@ export class SearchComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       (loc) =>{
         this.selectedLoc = loc
+        console.info(this.selectedLoc)
       }
     )
+    
    }
 }
 

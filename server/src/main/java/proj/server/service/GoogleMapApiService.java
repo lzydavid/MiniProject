@@ -30,6 +30,8 @@ public class GoogleMapApiService {
                 .toUriString();
 
         System.out.println("query string:" + url);
+
+        System.out.println("query string:" + url);
         
         RestTemplate restTemplate = new RestTemplate();
 

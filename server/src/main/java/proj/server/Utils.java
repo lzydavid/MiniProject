@@ -35,7 +35,13 @@ public class Utils {
             
             JsonArray arr = data.getJsonArray("results");
 
-            restaurants = arr.stream().map(v->v.asJsonObject()).map(Utils::toRestaurant).toList();
+            System.out.println(arr.size());
+
+            restaurants = arr.stream()
+                .map(v->v.asJsonObject())
+                .map(Utils::toRestaurant)
+                .filter(v->v.getOperational()==true)
+                .toList();
 
             result.setRestaurants(restaurants);
         }
@@ -66,6 +72,15 @@ public class Utils {
             JsonObject photoObj = photosArr.getJsonObject(0);
             r.setPhotoRef(photoObj.getString("photo_reference"));
         }
+
+        String opt= o.getString("business_status");
+        System.out.println("Business status: "+o.getString("name")+opt);
+        if(opt.equalsIgnoreCase("OPERATIONAL")){
+            r.setOperational(true);
+        }else{
+            r.setOperational(false);
+        }
+
         return r;
     }
 

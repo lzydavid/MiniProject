@@ -41,7 +41,7 @@ public class RestController {
 
         TextSearchResults result = svc.googleMapTextSearch(encodedString);
 
-        //System.out.println(result);
+        // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 

@@ -23,6 +23,9 @@ export class LocationDialogComponent {
         { name: 'Pioneer' },
         { name: 'Choa Chu Kang' },
         { name: 'Clementi' },
+        { name: 'Jurong East' },
+        { name: 'Jurong West' },
+        { name: 'Tengah' },
         { name: 'Tuas' },
         { name: 'Pioneer' },
         { name: 'Pasir Laba'},
@@ -79,7 +82,6 @@ export class LocationDialogComponent {
   ];
 
   onOptionSelect(option: Option) {
-    console.log('Selected option:', option);
     const loc:string = option.name
     this.accordion.closeAll()
     this.dialogRef.close(loc)

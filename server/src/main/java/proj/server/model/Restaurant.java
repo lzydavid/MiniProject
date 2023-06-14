@@ -13,10 +13,11 @@ public class Restaurant {
 
     private String address;
     private String name;
-    private Float rating = 0.0f; //google rating
+    private Float rating = -1f; //google rating
     private String photoRef = "none";
     private String placeId;
     private Integer priceLevel = -1;
+    private Boolean operational;
 
     public JsonObject toJSON(){
 
