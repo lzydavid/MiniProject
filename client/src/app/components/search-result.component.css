@@ -2,15 +2,22 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 45%;
+  width: 70%;
   overflow: auto;
   height: 50%;
+  border-style: solid;
+  background-color: white;
+}
+
+.container{
+  width: 45%;
 }
 
 .mycontainer{
   display: flex;
   justify-content: center;
   padding-top: 5%;
+  background-color: whitesmoke;
 }
 
 .card-hover-effect {
