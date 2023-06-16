@@ -3,22 +3,19 @@
   <div class="mycontainer">
     <div class="container d-flex flex-column">
     <!-- <div class="cardbody"> -->
-      <div class="card mb-2 card-hover-effect" *ngFor="let r of restaurants" (click)="onSelect(r)">
+      <div class="card mb-2 card-hover-effect" *ngFor="let r of restaurants">
         <div class="row">
-          <div class="col-md-5">
-            <!-- <img src="../../assets/placeholder-image.jpg" class="img rounded-start"> -->
-            <img src="{{r.photoRef | convert}}" class="img rounded-start">
+          <div class="col-md-4">
+            <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
+            <!-- <img src="{{r.photoRef | convert}}" class="img rounded-start"> -->
           </div>
-          <div class="col-md-7">
+          <div class="col-md-7" (click)="onSelect(r)">
             <div class="card-body">
               <div class="row">
                 <div class="col-10">
                   <h3 class="card-title">
                     {{ r.name }}
                   </h3>
-                </div>
-                <div class="col-2">
-                  <mat-icon>bookmark_border</mat-icon>
                 </div>
               </div>
               <p class="card-text">
@@ -34,9 +31,38 @@
                 </p>
               </div>
             </div>
+          </div>
+          <div class="col-1">
+            &nbsp;
+            <div class="mb-3">
+              <button class="button" [matMenuTriggerFor]="menu">
+                <h1>+</h1>
+              </button>
             </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
 </body>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="collections">
+    <mat-icon>library_add</mat-icon>
+    <span>Add to Collection</span>
+  </button>
+  <button mat-menu-item (click)="openDialog()">
+    <mat-icon>create</mat-icon>
+    <span>Create new Collection</span>
+  </button>
+</mat-menu>
+
+<mat-menu #collections="matMenu">
+  <div>
+    <mat-list role="list">
+      <mat-list-item *ngFor="let c of collectionsName" role="listitem" (click)="addToCollection(c)">
+        {{c}}
+      </mat-list-item>
+    </mat-list>
+  </div>
+</mat-menu>

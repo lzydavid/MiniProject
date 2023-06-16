@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Restaurant } from '../model';
+import { Collection, Restaurant } from '../model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,8 @@ export class SvcService {
   restaurants!:Restaurant[]
   nextPageToken!:string
   restaurantSelectedToView!:Restaurant
+  bookmarkedPlaces!:Restaurant[]
+  userCollection!:Collection[]
   
   constructor() { }
 }

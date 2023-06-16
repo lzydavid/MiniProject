@@ -18,6 +18,10 @@ import { LocationDialogComponent } from './components/dialog/location-dialog.com
 import { safePipe } from './components/custom-pipes/safe.pipe';
 import { RatingIconPipe } from './components/custom-pipes/rating-icon.pipe';
 import { PriceIconPipe } from './components/custom-pipes/price-icon.pipe';
+import { AccountComponent } from './components/account.component';
+import { SavedResultComponent } from './components/saved-result.component';
+import { ProfileComponent } from './components/profile.component';
+import { CreateColDialogComponent } from './components/dialog/create-col-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { PriceIconPipe } from './components/custom-pipes/price-icon.pipe';
     safePipe,
     LocationDialogComponent,
     RatingIconPipe,
-    PriceIconPipe 
+    PriceIconPipe,
+    AccountComponent,
+    SavedResultComponent,
+    ProfileComponent,
+    CreateColDialogComponent 
   ],
   imports: [
     BrowserModule,
