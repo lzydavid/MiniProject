@@ -50,6 +50,8 @@ export interface RegisterResult {
 }
 
 export interface Collection{
+    userId:string
+    colId:number
     collectionName:string
     restaurants:Restaurant[]
 }

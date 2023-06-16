@@ -19,6 +19,7 @@ import jakarta.json.JsonObject;
 import proj.server.model.PlaceDetails;
 import proj.server.model.TextSearchResults;
 import proj.server.model.UserAccount;
+import proj.server.model.UserCollection;
 import proj.server.model.UserLogin;
 import proj.server.service.GoogleMapApiService;
 import proj.server.service.UserAccountService;
@@ -68,4 +69,13 @@ public class RestController {
         JsonObject result = accSvc.retrieveAccount(user);
         return ResponseEntity.ok(result.toString());
     }
+
+    @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> saveCollections(@RequestBody UserCollection[] collections){
+
+        
+        
+        return ResponseEntity.ok(null);
+    }
+
 }

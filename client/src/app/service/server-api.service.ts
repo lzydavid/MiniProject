@@ -1,8 +1,9 @@
 import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {lastValueFrom} from 'rxjs'
-import { PlaceDetails, RegisterResult, UserAccount, UserLogin } from '../model';
+import { Collection, PlaceDetails, RegisterResult, UserAccount, UserLogin } from '../model';
 import { FormGroup } from '@angular/forms';
+import { SvcService } from './svc.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,9 @@ export class ServerApiService {
 
   private headers = new HttpHeaders().set("Content-Type", "application/json; charset=utf-8");
 
-  constructor(private httpClient:HttpClient) { }
+  userCollections!:Collection[]
+
+  constructor(private httpClient:HttpClient,private svc:SvcService) { }
 
   getResultFromSearch(query:string,location:string):Promise<any> {
 
@@ -67,6 +70,10 @@ export class ServerApiService {
   }
 
   saveCollection() {
-    
+    const url = this.SERVER_API_URL + '/save'
+    this.userCollections = this.svc.userCollection
+    const body = JSON.stringify(this.userCollections)
+
+    return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
   }
 }

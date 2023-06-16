@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Collection {
+public class UserCollection {
     
     private String collectionName;
     private Restaurant[] restaurants;

@@ -37,6 +37,28 @@
             <div class="mb-3" >
               <button class="button" [matMenuTriggerFor]="menu" >
                 <h1>+</h1>
+                <div>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="collectionslist" *ngIf="collections.length>0; else pleaseCreate">
+                      <mat-icon>library_add</mat-icon>
+                      <span>Add to Collection</span>
+                    </button>
+                    <button mat-menu-item (click)="openDialog()">
+                      <mat-icon>create</mat-icon>
+                      <span>Create new Collection</span>
+                    </button>
+                  </mat-menu>
+                  
+                  <mat-menu #collectionslist="matMenu">
+                    <div>
+                      <mat-list role="list">
+                        <mat-list-item *ngFor="let col of collections" role="listitem" (click)="addToCollection(col,r)">
+                          {{col.collectionName}}
+                        </mat-list-item>
+                      </mat-list>
+                    </div>
+                  </mat-menu>
+                </div>
               </button>
             </div>
           </div>
@@ -46,23 +68,12 @@
   </div>
 </body>
 
-<mat-menu #menu="matMenu">
-  <button mat-menu-item [matMenuTriggerFor]="collections">
-    <mat-icon>library_add</mat-icon>
-    <span>Add to Collection</span>
-  </button>
-  <button mat-menu-item (click)="openDialog()">
-    <mat-icon>create</mat-icon>
-    <span>Create new Collection</span>
-  </button>
-</mat-menu>
+<ng-template #pleaseCreate>
+    <div class="create">
+      <mat-icon>add_alert</mat-icon>
+      <span>Please create a new Collection</span>
+      <br>
+    </div>
+</ng-template>
 
-<mat-menu #collections="matMenu">
-  <div>
-    <mat-list role="list">
-      <mat-list-item *ngFor="let c of collectionsName" role="listitem" (click)="addToCollection(c)">
-        {{c}}
-      </mat-list-item>
-    </mat-list>
-  </div>
-</mat-menu>
+
