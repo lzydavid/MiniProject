@@ -58,7 +58,6 @@ export class SearchComponent implements OnInit {
         console.info(this.selectedLoc)
       }
     )
-    
    }
 }
 

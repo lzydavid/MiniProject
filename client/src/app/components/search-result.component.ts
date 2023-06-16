@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Restaurant,restaurants } from '../model';
+import { Collection, Restaurant,restaurants } from '../model';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
@@ -17,8 +17,11 @@ export class SearchResultComponent implements OnInit{
   restaurants!:Restaurant[]
   nextPageToken!:string
   collectionsName:string[]=['Favourite','Want to try','Saved for later']
+  collections!:Collection[]
 
-  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog) {}
+  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog) {
+    this.collections=[]
+  }
 
   ngOnInit(): void {
     this.restaurants = restaurants
@@ -42,7 +45,10 @@ export class SearchResultComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(
       data =>{
-        this.collectionsName.push(data['colName'])
+        const name:string = data['colName'] 
+        const newCol:Collection = {collectionName:name,restaurants:[]}
+        this.collections.push(newCol)
+        console.info(this.collections)
       }
     )
   }

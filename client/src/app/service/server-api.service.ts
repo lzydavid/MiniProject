@@ -65,4 +65,8 @@ export class ServerApiService {
 
     return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
   }
+
+  saveCollection() {
+    
+  }
 }
