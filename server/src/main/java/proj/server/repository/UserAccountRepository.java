@@ -18,8 +18,10 @@ public class UserAccountRepository {
 
     private static final String RETRIEVE_ACCOUNT_SQL = "select * from accounts where email = ?";
 
-    // private static final String CHECK_EMAIL_EXIST_SQL = "select count(*) from accounts where email = ?;";
+    private static final String CHECK_ACCOUNT_EXIST_SQL = "select count(*) from accounts where email = ?";
     
+    private static final String CHECK_CREDENTIAL_EXIST_SQL = "select count(*) from accounts where email = ? and password = ?;";
+
     @Autowired
     private JdbcTemplate template;
 
@@ -35,19 +37,36 @@ public class UserAccountRepository {
         }    
     }
 
-    public Optional<UserAccount> retrieveAccount(UserCredentials user){
+    public boolean checkIfAccountExist(String email) {
+
+        Integer returns = template.queryForObject(CHECK_ACCOUNT_EXIST_SQL,Integer.class,email);
+
+        if(returns>0){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfCredentialsCorrect(UserCredentials uc){
+
+        Integer returns = template.queryForObject(CHECK_CREDENTIAL_EXIST_SQL, Integer.class,uc.getEmail(),uc.getPassword());
+
+        if(returns>0){
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<UserAccount> retrieveAccount(String email){
 
         try{
-            UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_SQL, new AccountRowMapper(), user.getEmail());
+            UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_SQL, new AccountRowMapper(), email);
 
             return Optional.of(account);
         }
         catch(DataAccessException e){
             return Optional.empty();
         }
-    }
-
-    public void saveCollections(){
     }
 
 }

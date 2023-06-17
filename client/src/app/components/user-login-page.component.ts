@@ -54,6 +54,12 @@ export class UserLoginPageComponent implements OnInit{
   }
 
   onSubmitLogin(){
+
+    const userCredentials:UserCredentials = {
+      email:this.LoginForm.value['email'],
+      password:this.LoginForm.value['password']
+    }
+    
     this.apiSvc.login(this.LoginForm).then(
       (result) =>{
         this.LoginStatus = result['status']

@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,15 +13,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import io.jsonwebtoken.Claims;
+import jakarta.json.Json;
 import jakarta.json.JsonObject;
+import proj.server.JwtUtils;
 import proj.server.model.PlaceDetails;
 import proj.server.model.TextSearchResults;
 import proj.server.model.UserAccount;
 import proj.server.model.UserCollection;
 import proj.server.model.UserCredentials;
+import proj.server.model.Exceptions.AccountNotFoundException;
+import proj.server.model.Exceptions.InvalidCredentialsException;
 import proj.server.service.GoogleMapApiService;
 import proj.server.service.UserAccountService;
 
@@ -64,10 +71,27 @@ public class RestController {
     }
 
     @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestBody UserCredentials user){
+    public ResponseEntity<String> login(@RequestBody UserCredentials user) throws Exception{
 
-        JsonObject result = accSvc.retrieveAccount(user);
-        return ResponseEntity.ok(result.toString());
+        System.out.println(user);
+
+        //check if acc exist in sql
+        try {
+            accSvc.LoginAccount(user);
+            String token = JwtUtils.generateToken(user.getEmail(), user.getPassword());
+            System.out.println(token);
+
+            JsonObject body = Json.createObjectBuilder().add("token", token).build();
+            return ResponseEntity.ok(body.toString());
+
+        } catch (AccountNotFoundException e) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+
+        } catch (InvalidCredentialsException e) {
+
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+        }
     }
 
     @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +100,25 @@ public class RestController {
         for (UserCollection userCollection : collections) {
             System.out.println(userCollection);
         }
+        
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping(path = "/acc",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> getAccDetails(@RequestHeader("Authorization") String token){
+
+        Claims claims = JwtUtils.decodeToken(token);
+        String email = claims.get("email", String.class);
+
+        JsonObject result = accSvc.retrieveAccount(email);
+        return ResponseEntity.ok(result.toString());
+    }
+
+    @GetMapping(path = "/col")
+    public ResponseEntity<String> getUserCollections(@RequestHeader("Authorization") String token){
+
+        Claims claims = JwtUtils.decodeToken(token);
+        String email = claims.get("email", String.class);
         
         return ResponseEntity.ok(null);
     }
