@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserCollection {
     
+    private String accId;
+    private String colId;
     private String collectionName;
     private Restaurant[] restaurants;
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup,Validators } from '@angular/forms';
 import { ServerApiService } from '../service/server-api.service';
-import { RegisterResult, UserAccount, UserLogin } from '../model';
+import { RegisterResult, UserAccount, UserCredentials } from '../model';
 import { RegDialogComponent } from './dialog/reg-dialog.component';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { AuthService } from '../service/auth.service';

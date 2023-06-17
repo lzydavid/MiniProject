@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import proj.server.model.UserAccount;
-import proj.server.model.UserLogin;
+import proj.server.model.UserCredentials;
 import proj.server.repository.UserAccountRepository;
 
 @Service
@@ -40,7 +40,7 @@ public class UserAccountService {
         
     }
 
-    public JsonObject retrieveAccount(UserLogin user){
+    public JsonObject retrieveAccount(UserCredentials user){
         Optional<UserAccount> opt = repo.retrieveAccount(user);
 
         if(opt.isEmpty()){

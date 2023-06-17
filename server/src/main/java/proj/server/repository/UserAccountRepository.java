@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import proj.server.model.AccountRowMapper;
 import proj.server.model.UserAccount;
-import proj.server.model.UserLogin;
+import proj.server.model.UserCredentials;
 
 @Repository
 public class UserAccountRepository {
@@ -35,7 +35,7 @@ public class UserAccountRepository {
         }    
     }
 
-    public Optional<UserAccount> retrieveAccount(UserLogin user){
+    public Optional<UserAccount> retrieveAccount(UserCredentials user){
 
         try{
             UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_SQL, new AccountRowMapper(), user.getEmail());
@@ -45,6 +45,9 @@ public class UserAccountRepository {
         catch(DataAccessException e){
             return Optional.empty();
         }
+    }
+
+    public void saveCollections(){
     }
 
 }

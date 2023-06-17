@@ -39,7 +39,7 @@ import { CreateColDialogComponent } from './components/dialog/create-col-dialog.
     AccountComponent,
     SavedResultComponent,
     ProfileComponent,
-    CreateColDialogComponent 
+    CreateColDialogComponent
   ],
   imports: [
     BrowserModule,

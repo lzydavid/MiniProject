@@ -39,7 +39,7 @@ export interface UserAccount {
     lastName:string
 }
 
-export interface UserLogin {
+export interface UserCredentials {
     email:string
     password:string
 }
@@ -50,8 +50,8 @@ export interface RegisterResult {
 }
 
 export interface Collection{
-    userId:string
-    colId:number
+    accId:string
+    colId:string
     collectionName:string
     restaurants:Restaurant[]
 }
@@ -131,7 +131,7 @@ export const Region: Region[] = [
         { name: 'Toa Payoh' },
       ]
     }
-  ];
+];
 
 export const restaurants:Restaurant[] = [
     {name:'Toast Box',address:'3155 Commonwealth Avenue West, #01-01/02, The Clementi Mall, Singapore 129588',rating:3.7,priceLevel:5,photoRef:'AZose0l753mRuFbB6R5v6EsN8-L464U42Wnu8_xwD2VWYzfYNDk8g_k494Mc09xhsgvMk4yp3bbN95fYR1GB7W-Oceb2GN3ujGcLkMQVa2RoecsRC7mAMVHUEsNXxva6jqswnqkOLstur9Ic9l4ADeXQq-4QVNNOgv7QjmxG-EwBUEiKKExC',placeId:'ChIJCbIiMY4a2jERCO2HiGa0ax8'},
@@ -156,7 +156,7 @@ export const restaurants:Restaurant[] = [
 
     {name:'Biggby Coffee',address:'3155 Commonwealth Ave W, #04-23/24, Singapore 129588',rating:3.8,priceLevel:-1,photoRef:'AZose0mwKZ_nRy3urSvv10l_HZbXHxH2mCCRD8p-4QDQxRyEFzePzWMFbc6ekf6CqGk37UzijJOQMmnB11c3eNbzeE80mG3S8Z5uDLXNlE46rVEQuVb1XJQg8WSG2UJMLDR2I1LobBlxQrCuPk2X93NV9i7uxtyhmJVocIyjwoIRFAm9gmmi',placeId:'ChIJzcTFtDMb2jERVpWWznA2KOM'}
 
-  ]
+]
 
 export const BookmarkedRestaurants:Restaurant[] = [
     {name:'Time Table Cafe 研磨时光咖啡',address:'Jurong West Street 41, #01-726 Block 456, Singapore 640456',rating:4.1,priceLevel:2,photoRef:'AZose0nNPoE8N3bR2zycUl7WQxlNZnkePRSHkgL9NFNEc83wq0EU7-rJAcVHXbj8PL59ie_qVr4_hMTaGfltZKboMWRngJMNH_BGJqiyjbPKyYPwFD6vibsdr8jlNecd3b9fCsmB3wQDW77j6AbPRiTFuaWJGTH2d171F9cT8PGUpbAyKLvE',placeId:'ChIJ9ep2u6IP2jERs37XyaPiiI4'},
@@ -167,8 +167,6 @@ export const BookmarkedRestaurants:Restaurant[] = [
 
     {name:'Time Table Cafe 研磨时光咖啡',address:'8 Chin Bee Ave, Singapore 619932',rating:4.4,priceLevel:2,photoRef:'AZose0lykTt2i-kGZa0bxPzSYw8ucz7bIYW6CgrtpHqlCTlawpT3WOxjEpBstp_mnXdNBnrTxcAR42fcdJ29OZ39-eV1E9_oK20j2PP92PwT3ua5StRj3kDKgok0JJtrgHyz1TRyjuYHKt-pCdZCBthsB4fFhVVbyExZzbZWK-j9n4fBG3u_',placeId:'ChIJAQAAEPEP2jERrhB2fWx7S-8'},
 ]
-
-
   export const placeDetailsExample:PlaceDetails = {
       placeId: "ChIJy64vxOwP2jERIp3kxn84fJM",
       name: "PUTIEN Jurong Point",
@@ -201,4 +199,10 @@ export const BookmarkedRestaurants:Restaurant[] = [
             time:"a year ago",
             profileUrl:'https://lh3.googleusercontent.com/a/AAcHTtc0oyZIjqKm9WQSpOIlolK4F3H472VmvSKgNifW=s128-c0x00000000-cc-rp-mo'}
       ]
-  }
+}
+
+export const testCollections:Collection[] = [
+  {accId:'0cac77c3',colId:'932649ab',collectionName:'Favourite',restaurants:BookmarkedRestaurants},
+  {accId:'0cac77c3',colId:'3e3cf839',collectionName:'Cafe',restaurants:BookmarkedRestaurants},
+  {accId:'0cac77c3',colId:'1824e39b',collectionName:'Saved for Later',restaurants:BookmarkedRestaurants}
+]

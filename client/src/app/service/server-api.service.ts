@@ -1,9 +1,11 @@
 import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {lastValueFrom} from 'rxjs'
-import { Collection, PlaceDetails, RegisterResult, UserAccount, UserLogin } from '../model';
+import { Collection, PlaceDetails, RegisterResult, UserAccount, UserCredentials,testCollections } from '../model';
 import { FormGroup } from '@angular/forms';
 import { SvcService } from './svc.service';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -62,7 +64,7 @@ export class ServerApiService {
     const login = {
       "email":form.value['email'],
       "password":form.value['password']
-    } as UserLogin
+    } as UserCredentials
 
     const body  = JSON.stringify(login)
 
@@ -71,7 +73,7 @@ export class ServerApiService {
 
   saveCollection() {
     const url = this.SERVER_API_URL + '/save'
-    this.userCollections = this.svc.userCollection
+    this.userCollections = testCollections
     const body = JSON.stringify(this.userCollections)
 
     return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))

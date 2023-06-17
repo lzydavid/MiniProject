@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
 import { AuthService } from '../service/auth.service';
 
+
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
@@ -18,10 +19,9 @@ export class SearchResultComponent implements OnInit, OnDestroy{
   userId!:string
   restaurants!:Restaurant[]
   nextPageToken!:string
-  // collectionsName:string[]=['Favourite','Want to try','Saved for later']
   collections!:Collection[]
 
-  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog,authSvc:AuthService) {
+  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog,authSvc:AuthService,private apiSvc:ServerApiService) {
     this.collections=[]
     //this.userId = authSvc.currentUser.id
   }
@@ -49,11 +49,12 @@ export class SearchResultComponent implements OnInit, OnDestroy{
 
     dialogRef.afterClosed().subscribe(
       data =>{
-        const name:string = data['colName'] 
+        const name:string = data['colName']
+        const newId = this.svc.generateUUID() 
         // const newCol:Collection = {userId:this.userId,collectionName:name,restaurants:[]}
-        // const newCol:Collection = {userId:'x',collectionName:name,restaurants:[]}
-        // this.collections.push(newCol)
-        // console.info(this.collections)
+        const newCol:Collection = {accId:'x',colId:newId,collectionName:name,restaurants:[]}
+        this.collections.push(newCol)
+        console.info(this.collections)
       }
     )
   }
@@ -73,4 +74,9 @@ export class SearchResultComponent implements OnInit, OnDestroy{
     this.svc.userCollection=this.collections
     console.info('hi')
   }
+
+  save(){
+    this.apiSvc.saveCollection()
+  }
+  
 }

@@ -20,7 +20,7 @@ import proj.server.model.PlaceDetails;
 import proj.server.model.TextSearchResults;
 import proj.server.model.UserAccount;
 import proj.server.model.UserCollection;
-import proj.server.model.UserLogin;
+import proj.server.model.UserCredentials;
 import proj.server.service.GoogleMapApiService;
 import proj.server.service.UserAccountService;
 
@@ -64,16 +64,18 @@ public class RestController {
     }
 
     @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> login(@RequestBody UserLogin user){
+    public ResponseEntity<String> login(@RequestBody UserCredentials user){
 
         JsonObject result = accSvc.retrieveAccount(user);
         return ResponseEntity.ok(result.toString());
     }
 
-    @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveCollections(@RequestBody UserCollection[] collections){
 
-        
+        for (UserCollection userCollection : collections) {
+            System.out.println(userCollection);
+        }
         
         return ResponseEntity.ok(null);
     }
