@@ -1,5 +1,8 @@
 package proj.server.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +16,12 @@ public class UserCollectionService {
     @Autowired
     private UserCollectionRepository repo;
     
-    public void saveCollections(UserCollection[] collections){
+    public void saveCollections(UserCollection[] collections,String userId){
 
         //for each collection
         for (UserCollection c : collections) {
             
-            repo.insertIntoCollectionTable(c);
+            repo.insertIntoCollectionTable(c,userId);
         
             repo.insertIntoResTable(c.getRestaurants());
 
@@ -29,5 +32,10 @@ public class UserCollectionService {
 
         }
 
+    }
+
+    public Optional<List<UserCollection>> retrieveCollections(String id){
+
+       return repo.getCollectionByAccId(id);
     }
 }

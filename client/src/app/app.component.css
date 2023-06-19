@@ -1,6 +1,7 @@
 body{
     display: flex;
     flex-direction: column;
+    
 }
 
 .navgation{
@@ -20,6 +21,11 @@ body{
     gap: 15px;
 }
 
-.main-body{
+/* .main-body{
     height: auto;
+} */
+
+main{
+    margin-top: 80px;
 }
+

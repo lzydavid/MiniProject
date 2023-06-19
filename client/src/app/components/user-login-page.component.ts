@@ -5,7 +5,10 @@ import { RegisterResult, UserAccount, UserCredentials } from '../model';
 import { RegDialogComponent } from './dialog/reg-dialog.component';
 import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { AuthService } from '../service/auth.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { UrlService } from '../service/url.service';
+import { SvcService } from '../service/svc.service';
 
 @Component({
   selector: 'app-user-login-page',
@@ -20,10 +23,11 @@ export class UserLoginPageComponent implements OnInit{
   RegMessage!:string
   LoginStatus!:boolean
   LoginMessage!:string
-
   signUp:boolean = false
 
-  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router){}
+  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router,private urlSvc:UrlService,private svc:SvcService){
+
+  }
 
   ngOnInit(): void {
     this.LoginForm=this.createLoginForm()
@@ -35,7 +39,16 @@ export class UserLoginPageComponent implements OnInit{
   }
 
   onSubmitReg(){
-    this.apiSvc.registerNewAccount(this.RegisterForm).then(
+
+    const newAcc:UserAccount={
+      id: '-',
+      email: this.RegisterForm.value['email'],
+      password: this.RegisterForm.value['password'],
+      firstName: this.RegisterForm.value['firstName'],
+      lastName: this.RegisterForm.value['lastName']
+    }
+
+    this.apiSvc.registerNewAccount(newAcc).then(
       (result) => {
         this.RegStatus=result.status
         this.RegMessage=result.message
@@ -53,27 +66,24 @@ export class UserLoginPageComponent implements OnInit{
     )
   }
 
-  onSubmitLogin(){
+  async onSubmitLogin(){
 
     const userCredentials:UserCredentials = {
       email:this.LoginForm.value['email'],
       password:this.LoginForm.value['password']
     }
     
-    this.apiSvc.login(this.LoginForm).then(
-      (result) =>{
-        this.LoginStatus = result['status']
-        console.info(this.LoginStatus)
-        if(!this.LoginStatus){
-          this.LoginMessage=result['message']
-        }else{
-          this.authSvc.currentUser = result['account']
-          this.authSvc.updateLoggedStatus(true)
-          console.info('Logged in!',this.authSvc.currentUser,this.authSvc.isLoggedIn)
+    await this.authSvc.login(userCredentials).then(
+      ()=>{
+      
+        if(this.svc.restaurants){
+          this.router.navigate(['/result'])
+        }
+        else{
           this.router.navigate(['/'])
         }
       }
-    )   
+    )
   }
 
   createLoginForm(){

@@ -1,6 +1,5 @@
 
 <body>
-  <button (click)="save()" >Test</button>
   <div class="mycontainer">
     <div class="container d-flex flex-column">
     <!-- <div class="cardbody"> -->
@@ -10,7 +9,7 @@
             <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
             <!-- <img src="{{r.photoRef | convert}}" class="img rounded-start"> -->
           </div>
-          <div class="col-md-7" (click)="onSelect(r)">
+          <div class="col-md-6" (click)="onSelect(r)">
             <div class="card-body">
               <div class="row">
                 <div class="col-10">
@@ -36,7 +35,7 @@
           <div class="col-1" >
             &nbsp;
             <div class="mb-3" >
-              <button class="button" [matMenuTriggerFor]="menu" >
+              <button class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
                 <h1>+</h1>
                 <div>
                   <mat-menu #menu="matMenu">
@@ -76,5 +75,21 @@
       <br>
     </div>
 </ng-template>
+
+<ng-template #pleaseLogginIn>
+  <button  type="button" (click)="openDialogWithRef(firstDialog)">
+    <h2>+</h2>
+  </button>
+</ng-template>
+
+<ng-template #firstDialog>
+  <p matDialogContent>Please Login First to Add</p>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose>Dismiss</button>
+    <button mat-button [routerLink]="['/login']" matDialogClose >Login</button>
+  </mat-dialog-actions>
+</ng-template>
+
+
 
 

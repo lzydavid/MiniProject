@@ -1,5 +1,5 @@
 <div class="container mb-3">
-   <form action="">
+   <form [formGroup]="pForm">
         <div class="row">
             <div class="col-4">
                 <h2>My Profile</h2>
@@ -9,42 +9,45 @@
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label">First Name</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="firstName" 
+                    placeholder="{{currentUser.firstName}}">
                 </div>
             </div>
             <div class="col-4">
                 <div class="mb-3">
                     <label class="form-label">Last Name</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="lastName" placeholder="{{currentUser.lastName}}">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 <div class="mb-3">
                     <label class="form-label">Old Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" formControlName="oldPassword">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 <div class="mb-3">
                     <label class="form-label">New Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" formControlName="oldPasswordCheck">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-5">
                 <div class="mb-3">
                     <label class="form-label">Re-Enter New Password</label>
-                    <input type="password" class="form-control">
+                    <input type="password" class="form-control" formControlName="newPassword">
                 </div>
             </div>
         </div>
         <div class="row">
-            <button class="btn">Updated Profile</button>
+            <div class="col-5">
+                <button class="btn" type="submit">Updated Profile</button>
+            </div>
         </div>
    </form>
 </div>

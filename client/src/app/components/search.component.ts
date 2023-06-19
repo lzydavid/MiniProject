@@ -25,12 +25,14 @@ export class SearchComponent implements OnInit {
     //console.info(this.svc.restaurants)
   }
 
-  onSubmit(){
+  //store searched result in service
+  async onSubmit(){
     const query = this.form.value['query']
     const location = this.form.value['location'] || this.selectedLoc
-    console.info('>>>Form'+ query + location)
-    this.apiSvc.getResultFromSearch(query,location).then(
+    console.info('>>>Form '+ query + location)
+    await this.apiSvc.getResultFromSearch(query,location).then(
       result=>{
+        console.info('search result: ',result)
         this.svc.restaurants = result.results
         this.svc.nextPageToken = result.nextPageToken
       }

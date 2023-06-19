@@ -4,7 +4,7 @@ import {lastValueFrom} from 'rxjs'
 import { Collection, PlaceDetails, RegisterResult, UserAccount, UserCredentials,testCollections } from '../model';
 import { FormGroup } from '@angular/forms';
 import { SvcService } from './svc.service';
-
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -16,9 +16,9 @@ export class ServerApiService {
 
   private headers = new HttpHeaders().set("Content-Type", "application/json; charset=utf-8");
 
-  userCollections!:Collection[]
-
-  constructor(private httpClient:HttpClient,private svc:SvcService) { }
+  constructor(private httpClient:HttpClient,private svc:SvcService) {
+    
+   }
 
   getResultFromSearch(query:string,location:string):Promise<any> {
 
@@ -38,44 +38,29 @@ export class ServerApiService {
     return lastValueFrom(this.httpClient.get<PlaceDetails>(url))
   }
 
-  registerNewAccount(form:FormGroup) :Promise<RegisterResult> {
+  registerNewAccount(newUserAcc:UserAccount) :Promise<RegisterResult> {
 
     const url = this.SERVER_API_URL +'/register'
 
-    const acc = {
-      "id":'-',
-      "firstName":form.value['firstName'],
-      "lastName":form.value['lastName'],
-      "email":form.value['email'],
-      "password":form.value['password']
-    } as UserAccount
-
-    console.info(acc)
-
-    const body = JSON.stringify(acc)
+    const body = JSON.stringify(newUserAcc)
 
     return lastValueFrom(this.httpClient.post<RegisterResult>(url,body,{headers:this.headers}))
   }
 
-  login(form:FormGroup):Promise<any> {
+  async getUserCollections(userId:string):Promise<Collection[]>{
+    
+    const params = new HttpParams()
+      .set('id',userId)
+    const url = this.SERVER_API_URL + '/col'
 
-    const url = this.SERVER_API_URL + '/login'
-
-    const login = {
-      "email":form.value['email'],
-      "password":form.value['password']
-    } as UserCredentials
-
-    const body  = JSON.stringify(login)
-
-    return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
+    return lastValueFrom(this.httpClient.get<Collection[]>(url,{params}))
   }
 
-  saveCollection() {
+  saveCollection(userId:string) {
     const url = this.SERVER_API_URL + '/save'
-    this.userCollections = testCollections
-    const body = JSON.stringify(this.userCollections)
+    const params = new HttpParams().set("id",userId)
+    const body = JSON.stringify(this.svc.userCollection)
 
-    return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
+    return lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers,params}))
   }
 }

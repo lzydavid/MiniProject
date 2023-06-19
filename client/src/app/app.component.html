@@ -1,23 +1,27 @@
 <body>
-  <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light mt-4">
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">Home</a>
-      
-      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn; else acc">
-      <!-- <ul class="navbar-nav ml-auto" *ngIf="false; else acc"> -->
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/login']">Sign up or Login</a>
-        </li>
-      </ul>
-
+  <header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light mt-4">
+      <div class="container">
+        <a class="navbar-brand" [routerLink]="['/']">Home</a>
+        
+        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn; else acc">
+        <!-- <ul class="navbar-nav ml-auto" *ngIf="false; else acc"> -->
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/login']">Sign up or Login</a>
+          </li>
+        </ul>
+  
+      </div>
+    </nav> 
+  </header>
+  <main>
+    <div class="main-body">
+      <app-search-result></app-search-result>
     </div>
-  </nav>  
-  <div class="main-body">
-    <app-search-result></app-search-result>
-  </div>
-  <!-- <footer>
-    my footer
-  </footer> -->
+    <!-- <footer>
+      my footer
+    </footer> -->
+  </main>
 </body>
 
 <ng-template #acc>

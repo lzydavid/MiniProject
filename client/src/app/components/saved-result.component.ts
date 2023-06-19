@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Restaurant,BookmarkedRestaurants } from '../model';
+import { Restaurant,BookmarkedRestaurants, Collection } from '../model';
+import { SvcService } from '../service/svc.service';
 
 @Component({
   selector: 'app-saved-result',
@@ -9,6 +10,9 @@ import { Restaurant,BookmarkedRestaurants } from '../model';
 export class SavedResultComponent {
 
   bookmarkedPlaces:Restaurant[] = BookmarkedRestaurants
+  collections!:Collection[]
 
-  constructor(){}
+  constructor(private svc:SvcService){
+    this.collections = svc.userCollection
+  }
 }

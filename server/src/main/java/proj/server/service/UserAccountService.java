@@ -3,8 +3,6 @@ package proj.server.service;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.security.auth.login.AccountNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.stereotype.Service;
@@ -13,6 +11,7 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import proj.server.model.UserAccount;
 import proj.server.model.UserCredentials;
+import proj.server.model.Exceptions.AccountNotFoundException;
 import proj.server.model.Exceptions.InvalidCredentialsException;
 import proj.server.repository.UserAccountRepository;
 

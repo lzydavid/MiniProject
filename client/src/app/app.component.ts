@@ -1,5 +1,10 @@
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from './service/auth.service';
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { UserAccount } from './model';
+import { ServerApiService } from './service/server-api.service';
+import { SvcService } from './service/svc.service';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +15,40 @@ export class AppComponent implements OnInit{
 
   isLoggedIn!:boolean
 
-  constructor(private authSvc:AuthService) {
+  constructor(private authSvc:AuthService,private apiSvc:ServerApiService,private svc:SvcService) {
     this.authSvc.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
     });
   }
 
-  ngOnInit(): void {
-    this.getCurrentLocation()
-    console.info(">>> is logged in" + this.isLoggedIn)
+  async ngOnInit() {
+    const token = localStorage.getItem("token")
+    if(token){
+      await this.authSvc.getCurrentUserInfo().then(
+        info=>{
+          const acc:UserAccount = info.account
+          if(acc){
+            this.authSvc.currentUser=acc
+            this.authSvc.isLoggedIn=true
+            this.isLoggedIn=true
+
+            this.apiSvc.getUserCollections(acc.id).then(
+              (col)=>{
+                this.svc.userCollection=col
+              }
+            )
+          }
+        }
+      )
+    }
+    console.info('>>> app.component: ',this.authSvc.currentUser)
+
+    console.info(">>> app.component isLoggedIn:"  + this.isLoggedIn)
   }
 
   logout(){
-    this.authSvc.updateLoggedStatus(false)
+    this.authSvc.isLoggedIn=false
+    //this.authSvc.updateLoggedStatus(false)
   }
 
   getCurrentLocation() {
@@ -44,5 +70,5 @@ export class AppComponent implements OnInit{
       console.error('Geolocation is not supported by this browser.');
     }
   }
-  
+
 }

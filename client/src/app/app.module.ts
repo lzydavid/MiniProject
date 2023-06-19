@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { SearchComponent } from './components/search.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchResultComponent } from './components/search-result.component';
 import { PlaceDetailsComponent } from './components/place-details.component';
@@ -22,6 +22,8 @@ import { AccountComponent } from './components/account.component';
 import { SavedResultComponent } from './components/saved-result.component';
 import { ProfileComponent } from './components/profile.component';
 import { CreateColDialogComponent } from './components/dialog/create-col-dialog.component';
+import { HttpInterceptorInterceptor } from './http-interceptor.interceptor';
+import { UrlService } from './service/url.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { CreateColDialogComponent } from './components/dialog/create-col-dialog.
     ReactiveFormsModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,useClass:HttpInterceptorInterceptor,multi:true
+  },UrlService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -50,7 +50,6 @@ export interface RegisterResult {
 }
 
 export interface Collection{
-    accId:string
     colId:string
     collectionName:string
     restaurants:Restaurant[]
@@ -202,7 +201,7 @@ export const BookmarkedRestaurants:Restaurant[] = [
 }
 
 export const testCollections:Collection[] = [
-  {accId:'0cac77c3',colId:'932649ab',collectionName:'Favourite',restaurants:BookmarkedRestaurants},
-  {accId:'0cac77c3',colId:'3e3cf839',collectionName:'Cafe',restaurants:BookmarkedRestaurants},
-  {accId:'0cac77c3',colId:'1824e39b',collectionName:'Saved for Later',restaurants:BookmarkedRestaurants}
+  {colId:'932649ab',collectionName:'Favourite',restaurants:BookmarkedRestaurants},
+  {colId:'3e3cf839',collectionName:'Cafe',restaurants:BookmarkedRestaurants},
+  {colId:'1824e39b',collectionName:'Saved for Later',restaurants:BookmarkedRestaurants}
 ]

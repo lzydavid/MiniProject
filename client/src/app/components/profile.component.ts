@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { UserAccount } from '../model';
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { FormBuilder,FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -10,19 +10,28 @@ import { FormBuilder,FormGroup } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
-  form!:FormGroup
+  pForm!:FormGroup
   currentUser!:UserAccount
 
   constructor(private authSvc:AuthService,private fb:FormBuilder){}
 
   ngOnInit(): void {
-    this.currentUser = this.authSvc.currentUser
+    // this.currentUser = this.authSvc.currentUser
+    this.currentUser = {
+      firstName:'Ilea',lastName:'Spears',email:'IleaSpear@gmail.com',password:'12345678',id:''
+    }
+    this.pForm = this.createForm(this.currentUser)
   }
 
-  createForm(){
+
+
+  createForm(user:UserAccount){
     return this.fb.group({
-      firstName:this.fb.control<string>(''),
-      lastName:this.fb.control<string>('')
+      firstName:this.fb.control<string>('',[Validators.required]),
+      lastName:this.fb.control<string>('',[Validators.required]),
+      oldPassword:this.fb.control<string>(''),
+      oldPasswordCheck:this.fb.control<string>(''),
+      newPassword:this.fb.control<string>('')
     })
   }
 
