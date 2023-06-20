@@ -1,78 +1,80 @@
 <body>
-  <cdk-virtual-scroll-viewport  style="height: 700px;" itemSize="90">
+  
     <div class="container">
       <div class="row">
         <div class="col-4" style="border-style: solid;">
 
         </div>
         <div class="col-8" style="border-style: solid;">
-          <div class="container d-flex flex-column">
-            <div class="card mb-2 card-hover-effect" *ngFor="let r of restaurants">
-              <div class="row">
-                <div class="col-md-4">
-                  <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
-                  <!-- <img src="{{r.photoRef | convert}}" class="img rounded-start"> -->
-                </div>
-                <div class="col-md-6" (click)="onSelect(r)">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-10">
-                        <h3 class="card-title">
-                          {{ r.name }}
-                        </h3>
+          <cdk-virtual-scroll-viewport cdkViewport style="height: 700px;" [itemSize]='itemSize'>
+            <div class="container d-flex flex-column">
+              <div class="card mb-2 card-hover-effect" *cdkVirtualFor="let r of restaurants">
+                <div class="row">
+                  <div class="col-md-4">
+                    <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
+                    <!-- <img src="{{r.photoRef | convert}}" class="img rounded-start"> -->
+                  </div>
+                  <div class="col-md-6" (click)="onSelect(r)">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-10">
+                          <h3 class="card-title">
+                            {{ r.name }}
+                          </h3>
+                        </div>
                       </div>
-                    </div>
-                    <p class="card-text">
-                     <i>{{r.address}}</i>
-                    </p>
-                    <p class="card-text">
-                      <span [innerHTML]="r.rating | ratingIcon"></span>
-                      <span *ngIf="r.rating>0"> {{r.rating}} </span>
-                    </p>
-                    <div *ngIf="r.priceLevel>0">
                       <p class="card-text">
-                        <span [innerHTML]="r.priceLevel| priceIcon"></span>
+                      <i>{{r.address}}</i>
                       </p>
+                      <p class="card-text">
+                        <span [innerHTML]="r.rating | ratingIcon"></span>
+                        <span *ngIf="r.rating>0"> {{r.rating}} </span>
+                      </p>
+                      <div *ngIf="r.priceLevel>0">
+                        <p class="card-text">
+                          <span [innerHTML]="r.priceLevel| priceIcon"></span>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="col-1" >
-                  &nbsp;
-                  <div class="mb-3" >
-                    <button class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
-                      <h1>+</h1>
-                      <div>
-                        <mat-menu #menu="matMenu">
-                          <button mat-menu-item [matMenuTriggerFor]="collectionslist" *ngIf="collections.length>0; else pleaseCreate">
-                            <mat-icon>library_add</mat-icon>
-                            <span>Add to Collection</span>
-                          </button>
-                          <button mat-menu-item (click)="openDialog()">
-                            <mat-icon>create</mat-icon>
-                            <span>Create new Collection</span>
-                          </button>
-                        </mat-menu>
-                        
-                        <mat-menu #collectionslist="matMenu">
-                          <div>
-                            <mat-list role="list">
-                              <mat-list-item *ngFor="let col of collections" role="listitem" (click)="addToCollection(col,r)">
-                                {{col.collectionName}}
-                              </mat-list-item>
-                            </mat-list>
-                          </div>
-                        </mat-menu>
-                      </div>
-                    </button>
+                  <div class="col-1" >
+                    &nbsp;
+                    <div class="mb-3" >
+                      <button class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
+                        <h1>+</h1>
+                        <div>
+                          <mat-menu #menu="matMenu">
+                            <button mat-menu-item [matMenuTriggerFor]="collectionslist" *ngIf="collections.length>0; else pleaseCreate">
+                              <mat-icon>library_add</mat-icon>
+                              <span>Add to Collection</span>
+                            </button>
+                            <button mat-menu-item (click)="openDialog()">
+                              <mat-icon>create</mat-icon>
+                              <span>Create new Collection</span>
+                            </button>
+                          </mat-menu>
+                          
+                          <mat-menu #collectionslist="matMenu">
+                            <div>
+                              <mat-list role="list">
+                                <mat-list-item *ngFor="let col of collections" role="listitem" (click)="addToCollection(col,r)">
+                                  {{col.collectionName}}
+                                </mat-list-item>
+                              </mat-list>
+                            </div>
+                          </mat-menu>
+                        </div>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </cdk-virtual-scroll-viewport>
         </div>
       </div>
     </div>
-  </cdk-virtual-scroll-viewport>
+  
 </body>
 
 <ng-template #pleaseCreate>

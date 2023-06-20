@@ -1,13 +1,13 @@
-import { Component, OnInit,OnDestroy, TemplateRef, OnChanges} from '@angular/core';
+import { Component, OnInit,OnDestroy, TemplateRef,ViewChild,AfterViewInit,ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
 import { Collection, Restaurant,restaurants } from '../model';
-import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
 import { AuthService } from '../service/auth.service';
-import {  } from '@angular/cdk/scrolling'
+import { CdkVirtualScrollViewport , VIRTUAL_SCROLL_STRATEGY} from '@angular/cdk/scrolling'
+import { from } from 'rxjs';
 
 
 @Component({
@@ -15,7 +15,11 @@ import {  } from '@angular/cdk/scrolling'
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit, OnDestroy{
+export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
+
+  @ViewChild(CdkVirtualScrollViewport) viewport!: CdkVirtualScrollViewport;
+
+  itemSize = 200
 
   userId!:string
   restaurants!:Restaurant[] //search result
@@ -23,7 +27,7 @@ export class SearchResultComponent implements OnInit, OnDestroy{
   collections!:Collection[]
   isLoggedIn:boolean=false
 
-  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog, private authSvc:AuthService,private apiSvc:ServerApiService) {
+  constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog, private authSvc:AuthService,private apiSvc:ServerApiService,private cdr:ChangeDetectorRef) {
     this.collections=[]
     //this.userId = authSvc.currentUser.id
   }
@@ -37,6 +41,24 @@ export class SearchResultComponent implements OnInit, OnDestroy{
       this.collections=this.svc.userCollection
       this.isLoggedIn=true
     }
+  }
+
+  ngAfterViewInit(): void {
+
+    this.viewport.elementScrolled().subscribe(
+      ()=> {
+        var items = this.viewport.getDataLength()
+        var end = this.viewport.getRenderedRange().end
+        console.info(items,end)
+        if(end>=items){
+          this.restaurants = this.restaurants.concat(restaurants)
+
+          items+=restaurants.length
+          this.cdr.detectChanges()
+        }
+
+      }
+    )
   }
 
   onSelect(r:Restaurant){
@@ -93,4 +115,5 @@ export class SearchResultComponent implements OnInit, OnDestroy{
   openDialogWithRef(ref: TemplateRef<any>) {
     this.matdiaglog.open(ref);
   }
+
 }
