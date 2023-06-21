@@ -94,17 +94,33 @@ public class Utils {
 
             PlaceDetails p = new PlaceDetails();
 
+            p.setPlaceId(results.getString("place_id"));
             p.setName(results.getString("name"));
             p.setAddress(results.getString("formatted_address"));
 
-            if(results.containsKey("formatted_phone_number")){
-                p.setPhoneNo(results.getString("formatted_phone_number"));
+            if(results.containsKey("delivery")){
+                p.setDelivery(results.getBoolean("delivery"));;
             }
 
-            p.setPlaceId(results.getString("place_id"));
-            
+            if(results.containsKey("dine_in")){
+                p.setDineIn(results.getBoolean("dine_in"));;
+            }
+
+            if(results.containsKey("takeout")){
+                p.setTakeout(results.getBoolean("takeout"));;
+            }
+
+            if(results.containsKey("reservable")){
+                p.setReservable(results.getBoolean("reservable"));;
+            }
+
+
             if(results.containsKey("price_level")){
                 p.setPriceLevel(results.getInt("price_level"));
+            }
+
+             if(results.containsKey("rating")){
+                p.setRating(results.getJsonNumber("rating").bigDecimalValue().floatValue());
             }
 
             if(results.containsKey("user_ratings_total")){
@@ -124,8 +140,48 @@ public class Utils {
                 p.setOpeningHours(ophrs);
             }
 
+             if(results.containsKey("formatted_phone_number")){
+                p.setPhoneNo(results.getString("formatted_phone_number"));
+            }
+
             if(results.containsKey("website")){
                 p.setWebsite(results.getString("website"));
+            }
+
+             if(results.containsKey("wheelchair_accessible_entrance")){
+                p.setWheelChairAccessible(results.getBoolean("wheelchair_accessible_entrance"));;
+            }
+
+            if(results.containsKey("serves_breakfast")){
+                p.setServesBreakfast(results.getBoolean("serves_breakfast"));;
+            }
+
+            if(results.containsKey("serves_brunch")){
+                p.setServesBrunch(results.getBoolean("serves_brunch"));;
+            }
+
+            if(results.containsKey("serves_lunch")){
+                p.setServesLunch(results.getBoolean("serves_lunch"));;
+            }
+
+            if(results.containsKey("serves_dinner")){
+                p.setServesDinner(results.getBoolean("serves_dinner"));;
+            }
+
+            if(results.containsKey("serves_dinner")){
+                p.setServesDinner(results.getBoolean("serves_dinner"));;
+            }
+
+            if(results.containsKey("serves_beer")){
+                p.setServesBeer(results.getBoolean("serves_beer"));;
+            }
+
+            if(results.containsKey("serves_wine")){
+                p.setServesWine(results.getBoolean("serves_wine"));;
+            }
+
+            if(results.containsKey("serves_vegetarian_food")){
+                p.setServesVegetarianFood(results.getBoolean("serves_vegetarian_food"));;
             }
 
             List<Reviews> reviews = new ArrayList<>();

@@ -1,26 +1,25 @@
 <body>
   <header>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light mt-4">
-      <div class="container">
-        <a class="navbar-brand" [routerLink]="['/']">Home</a>
-        
-        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn; else acc">
-        <!-- <ul class="navbar-nav ml-auto" *ngIf="false; else acc"> -->
-          <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/login']">Sign up or Login</a>
-          </li>
-        </ul>
-  
-      </div>
-    </nav> 
+      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" [routerLink]="['/']">Home</a>
+          
+          <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn; else acc">
+          <!-- <ul class="navbar-nav ml-auto" *ngIf="false; else acc"> -->
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/login']">Sign up or Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav> 
   </header>
   <main>
     <div class="main-body">
-      <app-search-result></app-search-result>
+      <app-place-details></app-place-details>
     </div>
-    <!-- <footer>
+    <footer>
       my footer
-    </footer> -->
+    </footer>
   </main>
 </body>
 

@@ -26,3 +26,10 @@ main{
     margin-top: 80px;
 }
 
+header{
+    background-color: black;
+}
+.navbar{
+    padding: 20px;
+}
+

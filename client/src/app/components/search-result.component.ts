@@ -7,7 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
 import { AuthService } from '../service/auth.service';
 import { CdkVirtualScrollViewport , VIRTUAL_SCROLL_STRATEGY} from '@angular/cdk/scrolling'
-import { from } from 'rxjs';
+import { async, from } from 'rxjs';
 
 
 @Component({
@@ -23,9 +23,14 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
 
   userId!:string
   restaurants!:Restaurant[] //search result
-  nextPageToken!:string
+  sortedRestaurants!: Restaurant[];
+
+  nextPageToken:string|null = null
   collections!:Collection[]
   isLoggedIn:boolean=false
+
+  filterRatingInc:boolean|undefined
+  filterPriceLvlInc:boolean|undefined
 
   constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog, private authSvc:AuthService,private apiSvc:ServerApiService,private cdr:ChangeDetectorRef) {
     this.collections=[]
@@ -35,30 +40,42 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   ngOnInit(): void {
 
     // this.restaurants = this.svc.restaurants
+    this.nextPageToken = this.svc.nextPageToken
     this.restaurants = restaurants
-    
+    this.sortedRestaurants = [...this.restaurants]
     if(this.authSvc.isLoggedIn){
       this.collections=this.svc.userCollection
       this.isLoggedIn=true
     }
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
 
-    this.viewport.elementScrolled().subscribe(
-      ()=> {
-        var items = this.viewport.getDataLength()
-        var end = this.viewport.getRenderedRange().end
-        console.info(items,end)
-        if(end>=items){
-          this.restaurants = this.restaurants.concat(restaurants)
+    // let isQuerying = false;
 
-          items+=restaurants.length
-          this.cdr.detectChanges()
-        }
+    // this.viewport.elementScrolled().subscribe(
+    //   async ()=> {
+    //     var items = this.viewport.getDataLength()
+    //     var end = this.viewport.getRenderedRange().end
+    //     console.info('result size', items,'viewport end:',end)
+    //     if(!isQuerying && end>=items && this.nextPageToken){
+    //       isQuerying = true;
 
-      }
-    )
+    //       const result = await this.apiSvc.getResultFromSearchWithToken(this.nextPageToken)
+    //       const moreRes:Restaurant[] = result.results
+    //       this.restaurants = this.restaurants.concat(moreRes)
+
+    //       items+=this.restaurants.length
+              
+    //       if(result.nextPageToken){
+    //         this.nextPageToken = result.nextPageToken
+    //       }else{
+    //         this.nextPageToken = null
+    //       }
+    //     }
+    //     this.cdr.detectChanges()
+    //   }
+    // )
   }
 
   onSelect(r:Restaurant){
@@ -99,21 +116,75 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   }
 
   //update the collection when leaving page
-  ngOnDestroy(): void {
+  async ngOnDestroy() {
     //update and save the current collection
     this.svc.userCollection=this.collections
 
     if(this.authSvc.isLoggedIn){
-      //this.apiSvc.saveCollection()
+      await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
     }
   }
 
   save(){
-    //this.apiSvc.saveCollection()
+    this.apiSvc.saveCollection(this.authSvc.currentUser.id)
   }
   
   openDialogWithRef(ref: TemplateRef<any>) {
     this.matdiaglog.open(ref);
   }
 
+  toggleRating() {
+
+    if (this.filterRatingInc === null) {
+      this.filterRatingInc = true;
+    } else {
+      this.filterRatingInc = !this.filterRatingInc;
+    }
+    this.sortRestaurantsByRating()
+    console.info(this.restaurants)
+  }
+
+  togglePrice() {
+
+    if (this.filterPriceLvlInc === null) {
+      this.filterPriceLvlInc = true;
+    } else {
+      this.filterPriceLvlInc = !this.filterPriceLvlInc;
+    }
+    console.info(this.filterPriceLvlInc)
+    this.sortRestaurantsByPrice()
+  }
+
+  sortRestaurantsByRating(): void {
+    if (this.filterRatingInc) {
+      this.sortedRestaurants = [...this.restaurants].sort((a, b) => {
+        if (a.rating === -1) return 1;
+        if (b.rating === -1) return -1;
+        return b.rating - a.rating;
+      });
+    } else {
+      this.sortedRestaurants = [...this.restaurants].sort((a, b) => {
+        if (a.rating === -1) return 1;
+        if (b.rating === -1) return -1;
+        return a.rating - b.rating;
+      });
+    }
+  }
+
+  sortRestaurantsByPrice(): void {
+    if (this.filterPriceLvlInc) {
+      this.sortedRestaurants = [...this.restaurants].sort((a, b) => {
+        if (a.priceLevel === -1) return 1;
+        if (b.priceLevel === -1) return -1;
+        return b.priceLevel - a.priceLevel;
+      });
+    } else {
+      this.sortedRestaurants = [...this.restaurants].sort((a, b) => {
+        if (a.priceLevel === -1) return 1;
+        if (b.priceLevel === -1) return -1;
+        return a.priceLevel - b.priceLevel;
+      });
+    }
+  }
+  
 }

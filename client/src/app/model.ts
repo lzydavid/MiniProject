@@ -14,11 +14,21 @@ export interface PlaceDetails {
     openNow:boolean
     delivery:boolean
     dineIn:boolean
+    takeout:boolean
+    reservable:boolean
     website:string
     phoneNo:string
     priceLevel:number
     numOfUserRating:number
     rating:number
+    wheelChairAccessible:boolean
+    servesBreakfast:boolean
+    servesBrunch:boolean
+    servesLunch:boolean
+    servesDinner:boolean
+    servesBeer:boolean
+    servesWine:boolean
+    servesVegetarianFood:boolean
     opening_hours:string[]
     reviews:review[]
 }
@@ -170,10 +180,11 @@ export const BookmarkedRestaurants:Restaurant[] = [
       placeId: "ChIJy64vxOwP2jERIp3kxn84fJM",
       name: "PUTIEN Jurong Point",
       address: "1 Jurong West Central 2, #02-34 Jurong Point, Singapore 648886",
-      openNow: false,delivery:true,dineIn:true,
+      openNow: false,delivery:true,dineIn:true,takeout:true,reservable:true,
       website: "https://www.putien.com/",phoneNo:'6795 2338',
       priceLevel: 2,
-      numOfUserRating:100,rating:4.8,
+      numOfUserRating:100,rating:4.8,wheelChairAccessible:true,
+      servesBreakfast:true,servesBrunch:true,servesLunch:true,servesDinner:true,servesBeer:true,servesWine:true,servesVegetarianFood:true,
       opening_hours: ["Monday: 11:30 AM – 10:00 PM",
       "Tuesday: 11:30 AM – 10:00 PM",
       "Wednesday: 11:30 AM – 10:00 PM",

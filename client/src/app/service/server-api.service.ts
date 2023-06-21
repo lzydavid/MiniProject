@@ -31,6 +31,16 @@ export class ServerApiService {
     return lastValueFrom(this.httpClient.get(url,{params}))
   }
 
+  getResultFromSearchWithToken(pagetoken:string):Promise<any> {
+
+    const url = this.SERVER_API_URL + '/search/nextpage'
+
+    const params = new HttpParams()
+      .set('pagetoken',pagetoken)
+
+    return lastValueFrom(this.httpClient.get(url,{params}))
+  }
+
   getRestaurantDetails(placeId:string):Promise<PlaceDetails> {
 
     const url = this.SERVER_API_URL + '/search/' + placeId

@@ -22,14 +22,26 @@ public class GoogleMapApiService {
     //return list of results + nextpagetoken
     public TextSearchResults googleMapTextSearch(String query) throws IOException {
 
-        System.out.println(query);
-
         String url = UriComponentsBuilder.fromUriString(GOOGLEMAP_TEXT_SEARCH)
                 .queryParam("query", query)
                 .queryParam("key", API_KEY)
                 .toUriString();
 
-        System.out.println("query string:" + url);
+        System.out.println(url);
+        
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> resp = restTemplate.getForEntity(url, String.class);
+
+        return Utils.getResult(resp.getBody());
+    }
+
+    public TextSearchResults googleMapTextSearchNextPage(String nxtpagetoken) throws IOException {
+
+        String url = UriComponentsBuilder.fromUriString(GOOGLEMAP_TEXT_SEARCH)
+                .queryParam("pagetoken", nxtpagetoken)
+                .queryParam("key", API_KEY)
+                .toUriString();
 
         System.out.println("query string:" + url);
         

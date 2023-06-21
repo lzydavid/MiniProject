@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
 import { PlaceDetails ,Restaurant,placeDetailsExample } from '../model';
+import {IWebsite } from '../icon'
 
 @Component({
   selector: 'app-place-details',
@@ -15,18 +16,23 @@ export class PlaceDetailsComponent implements OnInit {
   // placeDetails:PlaceDetails = placeDetailsExample
   place!:Restaurant
 
+  myIcons:any[]= [IWebsite]
+  myIcon = IWebsite
+
 
   constructor(private generalSvc:SvcService,private serverSvc:ServerApiService) {}
 
   ngOnInit(): void {
     this.place = this.generalSvc.restaurantSelectedToView
 
-    this.serverSvc.getRestaurantDetails(this.place.placeId).then(
-      (result)=>{
-        this.placeDetails=result
-        console.info(this.placeDetails)
-      }
-    )
+    this.placeDetails= placeDetailsExample
+
+    // this.serverSvc.getRestaurantDetails(this.place.placeId).then(
+    //   (result)=>{
+    //     this.placeDetails=result
+    //     console.info(this.placeDetails)
+    //   }
+    // )
   }
 
   getGoogleMapUrl(placeId:string):string {

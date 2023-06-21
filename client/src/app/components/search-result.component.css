@@ -45,3 +45,8 @@
 .create{
   padding: 10px;
 }
+
+.filter-button{
+  width: 100%;
+  height: 3em;
+}

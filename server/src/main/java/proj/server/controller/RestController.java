@@ -62,6 +62,15 @@ public class RestController {
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 
+    @GetMapping(path = "/search/nextpage",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> restaurantSearchNxtPage(@RequestParam String pagetoken) throws IOException {
+        
+        TextSearchResults result = svc.googleMapTextSearchNextPage(pagetoken);
+
+        // System.out.println(result);
+        return ResponseEntity.ok().body(result.toJSON().toString());
+    }
+
     @GetMapping(path = "/search/{placeId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> placeDetailSearch(@PathVariable String placeId) throws IOException {
         PlaceDetails p = svc.googleMapPlaceDetailsSearch(placeId);

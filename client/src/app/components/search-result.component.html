@@ -1,14 +1,67 @@
 <body>
-  
     <div class="container">
       <div class="row">
         <div class="col-4" style="border-style: solid;">
-
+          <div class="container d-flex justify-content-center flex-column">
+            <div style="padding-top: 100px;">
+              <h2>Filters</h2>
+            </div>
+            <div class="row">
+              <div class="col-8"> 
+                <button class="btn btn-labeled btn-outline-secondary filter-button mb-3"
+                (click)="toggleRating()">
+                  <div class="row">
+                    <div class="col-8">
+                      Rating
+                    </div>
+                    <div class="col-2">
+                      <ng-container *ngIf="filterRatingInc === true">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
+                      </ng-container>
+                      <ng-container *ngIf="filterRatingInc === false">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M182.6 137.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8H288c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+                      </ng-container>
+                      <ng-container *ngIf="filterRatingInc === null">
+                       
+                      </ng-container>
+                    </div>
+                  </div>                  
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8"> 
+                <button class="btn btn-labeled btn-outline-secondary filter-button" (click)="togglePrice()">
+                  <div class="row">
+                    <div class="col-8">
+                      Price Level
+                    </div>
+                    <div class="col-2">
+                      <ng-container *ngIf="filterPriceLvlInc==true">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z"/></svg>
+                      </ng-container>
+                      <ng-container *ngIf="filterPriceLvlInc==false">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M182.6 137.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8H288c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+                      </ng-container>
+                      <ng-container *ngIf="filterPriceLvlInc==null">
+                        
+                      </ng-container>
+                    </div>
+                  </div>                  
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col-8" style="border-style: solid;">
+          <div>
+            <small>
+              search result: {{nextPageToken? restaurants.length +' +':restaurants.length}}
+            </small>
+          </div>
           <cdk-virtual-scroll-viewport cdkViewport style="height: 700px;" [itemSize]='itemSize'>
             <div class="container d-flex flex-column">
-              <div class="card mb-2 card-hover-effect" *cdkVirtualFor="let r of restaurants">
+              <div class="card mb-2 card-hover-effect" *cdkVirtualFor="let r of sortedRestaurants">
                 <div class="row">
                   <div class="col-md-4">
                     <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
@@ -99,6 +152,12 @@
   </mat-dialog-actions>
 </ng-template>
 
+<ng-template #ratingDec>
+  <div class="col-2" >
+    <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M182.6 137.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8H288c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+  </div>
+</ng-template>
 
-
-
+<div class="col-2" #pricelvlDec>
+  <svg xmlns="http://www.w3.org/2000/svg" height="2em" viewBox="0 0 320 512"><path d="M182.6 137.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-9.2 9.2-11.9 22.9-6.9 34.9s16.6 19.8 29.6 19.8H288c12.9 0 24.6-7.8 29.6-19.8s2.2-25.7-6.9-34.9l-128-128z"/></svg>
+</div>

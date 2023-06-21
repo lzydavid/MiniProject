@@ -22,12 +22,22 @@ public class PlaceDetails {
     private Boolean openNow;
     private Boolean delivery;
     private Boolean dineIn;
+    private Boolean takeout;
+    private Boolean reservable;
     private String[] openingHours;
     private String phoneNo;
     private String website;
     private Integer priceLevel = -1;
     private Integer numOfUserRating = -1;
     private Float rating = 0.0f;
+    private Boolean wheelChairAccessible;
+    private Boolean servesBreakfast;
+    private Boolean servesBrunch;
+    private Boolean servesLunch;
+    private Boolean servesDinner;
+    private Boolean servesBeer;
+    private Boolean servesWine;
+    private Boolean servesVegetarianFood;
     private List<Reviews> reviews;
 
     public JsonObject toJSON() {
@@ -49,6 +59,15 @@ public class PlaceDetails {
         if(getDineIn()!=null){
             objBld.add("dineIn", getDineIn());
         }
+        
+        if(getTakeout()!=null){
+            objBld.add("takeout", getTakeout());
+        }
+
+         if(getReservable()!=null){
+            objBld.add("reservable", getReservable());
+        }
+
 
         if(getOpeningHours()!=null){
             JsonArrayBuilder arrBld = Json.createArrayBuilder();
@@ -65,6 +84,38 @@ public class PlaceDetails {
 
         if(getWebsite()!=null){
             objBld.add(website, getWebsite());
+        }
+
+        if(getWheelChairAccessible()!=null){
+            objBld.add("wheelChairAccessible", getWheelChairAccessible());
+        }
+
+        if(getServesBreakfast()!=null){
+            objBld.add("servesBreakfast", getServesBreakfast());
+        }
+        
+        if(getServesBrunch()!=null){
+            objBld.add("servesBrunch", getServesBrunch());
+        }
+
+        if(getServesLunch()!=null){
+            objBld.add("servesLunch", getServesLunch());
+        }
+
+        if(getServesDinner()!=null){
+            objBld.add("servesDinner", getServesDinner());
+        }
+
+        if(getServesBeer()!=null){
+            objBld.add("servesBeer", getServesBeer());
+        }
+
+        if(getServesWine()!=null){
+            objBld.add("servesWine", getServesWine());
+        }
+
+        if(getServesVegetarianFood()!=null){
+            objBld.add("servesVegetarianFood", getServesVegetarianFood());
         }
 
 
