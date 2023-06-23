@@ -54,8 +54,15 @@ public class Utils {
 
         Restaurant r = new Restaurant();
 
-        r.setAddress(o.getString("formatted_address"));
         r.setName(o.getString("name"));
+
+        if(o.containsKey("formatted_address")){
+            r.setAddress(o.getString("formatted_address"));
+        }
+
+        if(o.containsKey("vicinity")){
+            r.setAddress(o.getString("vicinity"));
+        }
 
         if(o.containsKey("price_level")){
             r.setPriceLevel(o.getInt("price_level"));

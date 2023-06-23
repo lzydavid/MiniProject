@@ -58,6 +58,15 @@ public class RestController {
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 
+    @GetMapping(path = "/searchnearby",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> restaurantSearchCurrentLoc(@RequestParam String query,@RequestParam String Latitude, @RequestParam String Longitude) throws IOException {
+
+        TextSearchResults result = svc.googleMapTextSearchCurrLocOkHttp(query, Latitude, Longitude);
+
+        // System.out.println(result);
+        return ResponseEntity.ok().body(result.toJSON().toString());
+    }
+
     @GetMapping(path = "/search/nextpage",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> restaurantSearchNxtPage(@RequestParam String pagetoken) throws IOException {
         

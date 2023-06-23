@@ -31,6 +31,18 @@ export class ServerApiService {
     return lastValueFrom(this.httpClient.get(url,{params}))
   }
 
+  getResultFromSearchNearBy(query:string,latitude:string,longitude:string):Promise<any> {
+
+    const url = this.SERVER_API_URL + '/searchnearby'
+
+    const params = new HttpParams()
+      .set('query',query)
+      .set('Latitude',latitude)
+      .set('Longitude',longitude)
+
+    return lastValueFrom(this.httpClient.get(url,{params}))
+  }
+
   getResultFromSearchWithToken(pagetoken:string):Promise<any> {
 
     const url = this.SERVER_API_URL + '/search/nextpage'

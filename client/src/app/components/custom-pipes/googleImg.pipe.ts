@@ -13,8 +13,13 @@ export class googleImgPipe implements PipeTransform{
 
     transform(value: string):string{
 
-        const photoRef = '&photo_reference='+value
-        const url = this.googleImgApi + this.key + this.param + photoRef
-        return url
+        if(value==='none'){
+            return '../../assets/imgnotfound.png'
+        }
+        else{
+            const photoRef = '&photo_reference='+value
+            const url = this.googleImgApi + this.key + this.param + photoRef
+            return url
+        }
     }
 }

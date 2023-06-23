@@ -15,7 +15,7 @@
                     <img src="" class="card-img-top">
                     <mat-card-content>
                       <p><small>{{r.address}} </small></p>
-                      <p> {{r.rating |number:'1.1-1'}} </p>
+                      <p [innerHTML]="r.rating |ratingIcon">  </p>
                       <p>{{r.priceLevel}}</p>
                     </mat-card-content>
                     <mat-card-actions>

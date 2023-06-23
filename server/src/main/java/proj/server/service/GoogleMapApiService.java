@@ -26,6 +26,7 @@ public class GoogleMapApiService {
     private static final String API_KEY="AIzaSyAKs4xwjpdFmZUq1dc8wbUeEDrcH4a14lg";
     private static final String GOOGLEMAP_TEXT_SEARCH="https://maps.googleapis.com/maps/api/place/textsearch/json";
     private static final String GOOGLEMAP_PLACE_DETAIL_SEARCH="https://maps.googleapis.com/maps/api/place/details/json";
+    private static final String GOOGLEMAP_NEARBY_SEARCH="https://maps.googleapis.com/maps/api/place/nearbysearch/json";
 
 
     //return list of results + nextpagetoken
@@ -106,7 +107,41 @@ public class GoogleMapApiService {
         
         response.close();
 
+        System.out.println(responseBody);
+
         return Utils.getResult(responseBody);
     }
+
+    public TextSearchResults googleMapTextSearchCurrLocOkHttp(String query,String lat,String Long) throws IOException {
+
+        String loc = lat + "," + Long;
+        String key = "?key="+API_KEY;
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(GOOGLEMAP_NEARBY_SEARCH+key).newBuilder();
+        urlBuilder.addQueryParameter("keyword", query)
+                .addQueryParameter("location", loc)
+                .addQueryParameter("radius", "1500");
+
+        String url = urlBuilder.build().toString();
+
+        System.out.println(url);
+        
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+        System.out.println(response.body().toString());
+
+
+        String responseBody = response.body().string();
+        
+        response.close();
+
+        System.out.println(responseBody);
+
+        return Utils.getResult(responseBody);
+    }
+
 
 }
