@@ -39,9 +39,9 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
 
   ngOnInit(): void {
 
-    // this.restaurants = this.svc.restaurants
+    this.restaurants = this.svc.restaurants
     this.nextPageToken = this.svc.nextPageToken
-    this.restaurants = restaurants
+    // this.restaurants = restaurants
     this.sortedRestaurants = [...this.restaurants]
     if(this.authSvc.isLoggedIn){
       this.collections=this.svc.userCollection
@@ -51,31 +51,31 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
 
   ngAfterViewInit() {
 
-    // let isQuerying = false;
+    let isQuerying = false;
 
-    // this.viewport.elementScrolled().subscribe(
-    //   async ()=> {
-    //     var items = this.viewport.getDataLength()
-    //     var end = this.viewport.getRenderedRange().end
-    //     console.info('result size', items,'viewport end:',end)
-    //     if(!isQuerying && end>=items && this.nextPageToken){
-    //       isQuerying = true;
+    this.viewport.elementScrolled().subscribe(
+      async ()=> {
+        var items = this.viewport.getDataLength()
+        var end = this.viewport.getRenderedRange().end
+        console.info('result size', items,'viewport end:',end)
+        if(!isQuerying && end>=items && this.nextPageToken){
+          isQuerying = true;
 
-    //       const result = await this.apiSvc.getResultFromSearchWithToken(this.nextPageToken)
-    //       const moreRes:Restaurant[] = result.results
-    //       this.restaurants = this.restaurants.concat(moreRes)
+          const result = await this.apiSvc.getResultFromSearchWithToken(this.nextPageToken)
+          const moreRes:Restaurant[] = result.results
+          this.restaurants = this.restaurants.concat(moreRes)
 
-    //       items+=this.restaurants.length
+          items+=this.restaurants.length
               
-    //       if(result.nextPageToken){
-    //         this.nextPageToken = result.nextPageToken
-    //       }else{
-    //         this.nextPageToken = null
-    //       }
-    //     }
-    //     this.cdr.detectChanges()
-    //   }
-    // )
+          if(result.nextPageToken){
+            this.nextPageToken = result.nextPageToken
+          }else{
+            this.nextPageToken = null
+          }
+        }
+        this.cdr.detectChanges()
+      }
+    )
   }
 
   onSelect(r:Restaurant){

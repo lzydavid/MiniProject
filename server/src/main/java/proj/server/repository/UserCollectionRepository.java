@@ -27,7 +27,7 @@ public class UserCollectionRepository {
 
     private static final String INSERT_INTO_COLRES_TABLE_SQL = "insert into collection_restaurant (collection_id,restaurant_id) select ? , ? where not exists(select 1 from collection_restaurant where collection_id = ? and restaurant_id = ?);";
 
-    private static final String INSERT_INTO_RES_TABLE_SQL = "insert into restaurants(place_id,name,address,rating,photo_ref,price_level) values (?,?,?,?,?,?)";
+    private static final String INSERT_INTO_RES_TABLE_SQL = "insert ignore into restaurants(place_id,name,address,rating,photo_ref,price_level) values (?,?,?,?,?,?)";
 
     private static final String RETRIEVE_RES_BY_COLID = "select distinct r.* from restaurants as r inner join collection_restaurant as cr on r.place_id = cr.restaurant_id where cr.collection_id = ?;";
 

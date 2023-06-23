@@ -1,7 +1,6 @@
 body{
     display: flex;
     flex-direction: column;
-    
 }
 
 .navgation{
@@ -24,6 +23,7 @@ body{
 
 main{
     margin-top: 80px;
+    border-style: solid;
 }
 
 header{

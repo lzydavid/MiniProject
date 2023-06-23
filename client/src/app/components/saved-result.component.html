@@ -1,18 +1,42 @@
-<div class="container">
-    <div class="colbox" *ngFor="let c of collections">
-      <div class="row">
-        <div class="row">
-          {{c.collectionName}}
-        </div>
-        <div class="col-4" *ngFor="let r of c.restaurants">
-            <div class="card">
-                <img src="../../assets/placeholder-image.jpg" class="card-img-top">
-                <div class="card-body">
-                  <h2 class="card-title">{{r.name}}</h2>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+<cdk-virtual-scroll-viewport cdkViewport style="height: 700px;" itemSize="100">
+  <div class="container">
+      <div class="colbox" *ngFor="let c of collections">
+        <div class="card">
+          <div class="card-title mb-3">
+            <i>{{c.collectionName}}</i>
+          </div>
+          <div class="card-body" >
+              <div class="row">
+                <div class="col-3" *ngFor="let r of c.restaurants">
+                  <mat-card (click)="onSelect()">
+                    <mat-card-header>
+                      {{r.name}}
+                    </mat-card-header>
+                    <img src="" class="card-img-top">
+                    <mat-card-content>
+                      <p><small>{{r.address}} </small></p>
+                      <p> {{r.rating |number:'1.1-1'}} </p>
+                      <p>{{r.priceLevel}}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                      <button mat-button (click)="removeFromCol(c,r)">Remove</button>
+                    </mat-card-actions>
+                  </mat-card>
                 </div>
-              </div>
+              </div>   
+          </div>
         </div>
+      </div>
+  </div>
+</cdk-virtual-scroll-viewport>
+
+
+<!-- <div class="col-4" *ngFor="let r of c.restaurants">
+  <div class="card">
+      <img src="../../assets/placeholder-image.jpg" class="card-img-top">
+      <div class="card-body">
+        <h2 class="card-title">{{r.name}}</h2>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
     </div>
-    </div>
-</div>
+</div> -->

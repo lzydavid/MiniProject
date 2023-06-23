@@ -23,8 +23,6 @@ export class ProfileComponent implements OnInit {
     this.pForm = this.createForm(this.currentUser)
   }
 
-
-
   createForm(user:UserAccount){
     return this.fb.group({
       firstName:this.fb.control<string>('',[Validators.required]),

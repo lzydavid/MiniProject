@@ -30,15 +30,18 @@ body{
 }
 
 .container{
-    border-style: solid;
     height: 100%;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white
 }
 
 .searchbox{
     width: 100%;
+    /* border-style: solid; */
+}
+
+.title{
+    /* border-style: solid; */
 }

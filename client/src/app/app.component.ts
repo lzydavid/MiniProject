@@ -48,7 +48,7 @@ export class AppComponent implements OnInit{
 
   logout(){
     this.authSvc.isLoggedIn=false
-    //this.authSvc.updateLoggedStatus(false)
+    this.authSvc.updateLoggedStatus(false)
   }
 
   getCurrentLocation() {
