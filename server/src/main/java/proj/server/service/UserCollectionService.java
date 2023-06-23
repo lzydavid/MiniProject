@@ -18,6 +18,8 @@ public class UserCollectionService {
     
     public void saveCollections(UserCollection[] collections,String userId){
 
+        repo.deletePreviousRecordsByID(userId);
+
         //for each collection
         for (UserCollection c : collections) {
             

@@ -49,6 +49,7 @@ export class AppComponent implements OnInit{
   logout(){
     this.authSvc.isLoggedIn=false
     this.authSvc.updateLoggedStatus(false)
+    localStorage.removeItem('token')
   }
 
   getCurrentLocation() {

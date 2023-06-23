@@ -64,6 +64,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
           const result = await this.apiSvc.getResultFromSearchWithToken(this.nextPageToken)
           const moreRes:Restaurant[] = result.results
           this.restaurants = this.restaurants.concat(moreRes)
+          this.sortedRestaurants = [...this.restaurants]
 
           items+=this.restaurants.length
               
@@ -121,7 +122,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     this.svc.userCollection=this.collections
 
     if(this.authSvc.isLoggedIn){
-      await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+      this.apiSvc.saveCollection(this.authSvc.currentUser.id)
     }
   }
 

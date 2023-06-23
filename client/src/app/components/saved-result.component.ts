@@ -3,6 +3,7 @@ import { Restaurant,BookmarkedRestaurants, Collection } from '../model';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
 import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-saved-result',
@@ -14,7 +15,7 @@ export class SavedResultComponent implements OnDestroy {
   bookmarkedPlaces:Restaurant[] = BookmarkedRestaurants
   collections!:Collection[]
 
-  constructor(private svc:SvcService,private apiSvc:ServerApiService,private authSvc:AuthService){
+  constructor(private svc:SvcService,private apiSvc:ServerApiService,private authSvc:AuthService,private router:Router){
     this.collections = svc.userCollection
   }
 
@@ -32,7 +33,9 @@ export class SavedResultComponent implements OnDestroy {
     )   
   }
 
-  onSelect() {
-    
+  onSelect(r:Restaurant) {
+
+    this.svc.restaurantSelectedToView = r
+    this.router.navigate(['/details'])
   }
 }

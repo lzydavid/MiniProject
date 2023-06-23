@@ -64,8 +64,8 @@
               <div class="card mb-2 card-hover-effect" *cdkVirtualFor="let r of sortedRestaurants">
                 <div class="row">
                   <div class="col-md-4">
-                    <img src="../../assets/placeholder-image.jpg" class="img rounded-start">
-                    <!-- <img src="{{r.photoRef | convert}}" class="img rounded-start"> -->
+                    <!-- <img src="../../assets/placeholder-image.jpg" class="img rounded-start"> -->
+                    <img src="{{r.photoRef | convert}}" class="img rounded-start">
                   </div>
                   <div class="col-md-6" (click)="onSelect(r)">
                     <div class="card-body">
@@ -81,7 +81,7 @@
                       </p>
                       <p class="card-text">
                         <span [innerHTML]="r.rating | ratingIcon"></span>
-                        <span *ngIf="r.rating>0"> {{r.rating}} </span>
+                        <span *ngIf="r.rating>0"> {{r.rating|number:'1.1-1'}} </span>
                       </p>
                       <div *ngIf="r.priceLevel>0">
                         <p class="card-text">
@@ -93,8 +93,8 @@
                   <div class="col-1" >
                     &nbsp;
                     <div class="mb-3" >
-                      <button class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
-                        <h1>+</h1>
+                      <button  mat-fab color="accent" class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
+                        <mat-icon>bookmark</mat-icon>
                         <div>
                           <mat-menu #menu="matMenu">
                             <button mat-menu-item [matMenuTriggerFor]="collectionslist" *ngIf="collections.length>0; else pleaseCreate">

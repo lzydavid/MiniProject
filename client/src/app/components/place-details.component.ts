@@ -13,7 +13,6 @@ export class PlaceDetailsComponent implements OnInit {
 
   private key = 'AIzaSyAKs4xwjpdFmZUq1dc8wbUeEDrcH4a14lg'
   placeDetails!:PlaceDetails
-  // placeDetails:PlaceDetails = placeDetailsExample
   place!:Restaurant
 
   checkIcon = "../../assets/icons/check-mark.png"
@@ -25,11 +24,9 @@ export class PlaceDetailsComponent implements OnInit {
     
     this.place = this.generalSvc.restaurantSelectedToView
 
-    // this.placeDetails= placeDetailsExample
-
     const result = await this.serverSvc.getRestaurantDetails(this.place.placeId)
 
-    this.placeDetails=result
+    this.placeDetails = result
   }
 
   getGoogleMapUrl(placeId:string):string {

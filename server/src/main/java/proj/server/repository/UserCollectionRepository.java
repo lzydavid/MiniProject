@@ -33,6 +33,11 @@ public class UserCollectionRepository {
 
     private static final String RETRIEVE_COL_BY_ACCID = "select * from collection where acc_id = ?";
 
+    private static final String DELETE_FROM_COLRES_BYID = "delete from collection_restaurant where collection_id IN (select col_id from collection where acc_id = ?)";
+
+    private static final String DELETE_FROM_COL_BYID = "DELETE FROM collection WHERE acc_id = ?;";
+
+
     public void insertIntoCollectionTable(UserCollection c,String AccId){
 
         template.update(INSERT_INTO_COL_TABLE_SQL,c.getColId() ,c.getCollectionName(),AccId);
@@ -96,5 +101,12 @@ public class UserCollectionRepository {
         return res;
     }
 
-    
+    public void deletePreviousRecordsByID(String userId) {
+
+        Integer deleted = template.update(DELETE_FROM_COLRES_BYID, userId);
+        if(deleted>0){
+            template.update(DELETE_FROM_COL_BYID,userId);
+        }
+
+    }
 }

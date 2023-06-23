@@ -1,12 +1,21 @@
 package proj.server.service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import okhttp3.Call;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import proj.server.Utils;
 import proj.server.model.PlaceDetails;
 import proj.server.model.TextSearchResults;
@@ -20,7 +29,11 @@ public class GoogleMapApiService {
 
 
     //return list of results + nextpagetoken
-    public TextSearchResults googleMapTextSearch(String query) throws IOException {
+    public TextSearchResults googleMapTextSearch(String query,String location) throws IOException {
+
+        String q = query.trim() + " in " + location.trim() + ",Singapore";
+		//String encodedString = URLEncoder.encode(q, StandardCharsets.UTF_8);
+        //System.out.println(encodedString);
 
         String url = UriComponentsBuilder.fromUriString(GOOGLEMAP_TEXT_SEARCH)
                 .queryParam("query", query)
@@ -67,6 +80,33 @@ public class GoogleMapApiService {
         ResponseEntity<String> resp = restTemplate.getForEntity(url, String.class);
 
         return Utils.getPlaceDetails(resp.getBody());
+    }
+
+    public TextSearchResults googleMapTextSearchOkHttp(String query,String location) throws IOException {
+
+        String q = query.trim() + " in " + location.trim() + ",Singapore";
+        System.out.println(q);
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(GOOGLEMAP_TEXT_SEARCH).newBuilder();
+        urlBuilder.addQueryParameter("query", q).addQueryParameter("key", API_KEY);
+
+        String url = urlBuilder.build().toString();
+
+        System.out.println(url);
+        
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder().url(url).build();
+        Call call = client.newCall(request);
+        Response response = call.execute();
+        System.out.println(response.body().toString());
+
+
+        String responseBody = response.body().string();
+        
+        response.close();
+
+        return Utils.getResult(responseBody);
     }
 
 }

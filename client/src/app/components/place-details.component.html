@@ -2,12 +2,12 @@
     <div class="container mb-3 d-flex flex-column">
         <div class="d-flex justify-content-start mt-2">
             <div>
-                <h1> {{placeDetails.name}}</h1>
+                <h1> {{placeDetails.name}} </h1>
             </div>
             <div>
                 <p class="card-text">
                     <span [innerHTML]="placeDetails.rating | ratingIcon"></span>
-                    <span *ngIf="placeDetails.rating>0"> {{placeDetails.rating}}</span>
+                    <span *ngIf="place.rating>0"> {{place.rating}}</span>
                     <span>( {{placeDetails.numOfUserRating}}  ) </span>
                   </p>
             </div>
@@ -107,20 +107,26 @@
                 <div class="card-body">
                     <div class="row">
                         <mat-chip-listbox>
-                            <mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesBreakfast">
                                 Breakfast <img matChipTrailingIcon [src]="checkIcon">
                             </mat-chip>
-                            <mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesBrunch">
                                 Brunch <img matChipTrailingIcon [src]="checkIcon">
                             </mat-chip>
-                            <mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesLunch">
                                 Lunch <img matChipTrailingIcon [src]="checkIcon">
                             </mat-chip>
-                            <mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesDinner">
                                 Dinner <img matChipTrailingIcon [src]="checkIcon">
                             </mat-chip>
-                            <mat-chip>
-                                Breakfast <img matChipTrailingIcon [src]="checkIcon">
+                            <mat-chip *ngIf="placeDetails.servesVegetarianFood">
+                                Vegetarian <img matChipTrailingIcon [src]="checkIcon">
+                            </mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesBeer">
+                                Beer <img matChipTrailingIcon [src]="checkIcon">
+                            </mat-chip>
+                            <mat-chip *ngIf="placeDetails.servesWine">
+                                Wine <img matChipTrailingIcon [src]="checkIcon">
                             </mat-chip>
                         </mat-chip-listbox>
                     </div>

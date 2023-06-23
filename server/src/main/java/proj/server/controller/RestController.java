@@ -52,11 +52,7 @@ public class RestController {
     @GetMapping(path = "/search",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> restaurantSearch(@RequestParam String query,@RequestParam String location) throws IOException {
 
-        String q = query.trim() + " in " + location.trim() + ",Singapore";
-		String encodedString = URLEncoder.encode(q, StandardCharsets.UTF_8);
-        System.out.println(encodedString);
-
-        TextSearchResults result = svc.googleMapTextSearch(encodedString);
+        TextSearchResults result = svc.googleMapTextSearchOkHttp(query,location);
 
         // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());
