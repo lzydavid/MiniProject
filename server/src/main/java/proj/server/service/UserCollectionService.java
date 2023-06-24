@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import proj.server.model.Restaurant;
 import proj.server.model.UserCollection;
 import proj.server.repository.UserCollectionRepository;
@@ -16,22 +17,30 @@ public class UserCollectionService {
     @Autowired
     private UserCollectionRepository repo;
     
-    public void saveCollections(UserCollection[] collections,String userId){
+    @Transactional
+    public Boolean saveCollections(UserCollection[] collections,String userId){
 
-        repo.deletePreviousRecordsByID(userId);
+        try{
+            repo.deletePreviousRecordsByID(userId);
 
-        //for each collection
-        for (UserCollection c : collections) {
-            
-            repo.insertIntoCollectionTable(c,userId);
-        
-            repo.insertIntoResTable(c.getRestaurants());
-
-            for (Restaurant r : c.getRestaurants()) {
+            //for each collection
+            for (UserCollection c : collections) {
                 
-                repo.insertIntoColResTable(c.getColId(), r.getPlaceId());
-            }
+                repo.insertIntoCollectionTable(c,userId);
+            
+                repo.insertIntoResTable(c.getRestaurants());
 
+                for (Restaurant r : c.getRestaurants()) {
+                    
+                    repo.insertIntoColResTable(c.getColId(), r.getPlaceId());
+                }
+
+            }
+            return true;
+            
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
         }
 
     }

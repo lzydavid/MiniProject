@@ -12,8 +12,8 @@ import { AuthService } from './auth.service';
 })
 export class ServerApiService {
 
-  // private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
-  private SERVER_API_URL = '/api'
+  private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
+  // private SERVER_API_URL = '/api'
 
 
   private headers = new HttpHeaders().set("Content-Type", "application/json; charset=utf-8");
@@ -71,7 +71,7 @@ export class ServerApiService {
     return lastValueFrom(this.httpClient.post<RegisterResult>(url,body,{headers:this.headers}))
   }
 
-  async getUserCollections(userId:string):Promise<Collection[]>{
+  getUserCollections(userId:string):Promise<Collection[]>{
     
     const params = new HttpParams()
       .set('id',userId)

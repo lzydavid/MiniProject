@@ -13,8 +13,8 @@ export class AuthService {
   isLoggedIn:boolean = false
   currentUser!:UserAccount
 
-  // private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
-  private SERVER_API_URL = '/api'
+  private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
+  // private SERVER_API_URL = '/api'
   private headers = new HttpHeaders().set("Content-Type", "application/json; charset=utf-8");
   
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -59,6 +59,8 @@ export class AuthService {
         this.svc.userCollection=col
       }
     )
+
+    console.info('After login success:',this.currentUser,this.svc.userCollection)
   } 
 
   getCurrentUserInfo():Promise<any>{

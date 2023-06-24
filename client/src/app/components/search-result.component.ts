@@ -8,6 +8,7 @@ import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
 import { AuthService } from '../service/auth.service';
 import { CdkVirtualScrollViewport , VIRTUAL_SCROLL_STRATEGY} from '@angular/cdk/scrolling'
 import { async, from } from 'rxjs';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -28,25 +29,33 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   nextPageToken:string|null = null
   collections!:Collection[]
   isLoggedIn:boolean=false
+  collectionsEmpty:boolean=true
 
   filterRatingInc:boolean|undefined
   filterPriceLvlInc:boolean|undefined
 
   constructor(private svc:SvcService,private router:Router,private matdiaglog:MatDialog, private authSvc:AuthService,private apiSvc:ServerApiService,private cdr:ChangeDetectorRef) {
-    this.collections=[]
-    //this.userId = authSvc.currentUser.id
+    
+    this.nextPageToken = this.svc.nextPageToken
+    this.restaurants = svc.restaurants
+    this.sortedRestaurants = [...this.restaurants]
+    if(this.authSvc.isLoggedIn){
+      this.isLoggedIn=true
+    }
+
+    if(svc.userCollection!=null){
+      this.collections=svc.userCollection
+    }else{
+      this.collections = []
+    }
+
+    if(this.collections.length>0){
+      this.collectionsEmpty=false
+    }
   }
 
   ngOnInit(): void {
 
-    this.restaurants = this.svc.restaurants
-    this.nextPageToken = this.svc.nextPageToken
-    // this.restaurants = restaurants
-    this.sortedRestaurants = [...this.restaurants]
-    if(this.authSvc.isLoggedIn){
-      this.collections=this.svc.userCollection
-      this.isLoggedIn=true
-    }
   }
 
   ngAfterViewInit() {
@@ -79,7 +88,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     )
   }
 
-  onSelect(r:Restaurant){
+  onSelectRes(r:Restaurant){
     console.info(r)
     this.svc.restaurantSelectedToView = r
     this.router.navigate(['/details'])
@@ -96,12 +105,16 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
 
     dialogRef.afterClosed().subscribe(
       data =>{
-        const name:string = data['colName']
-        const newId = this.svc.generateUUID() 
-        // const newCol:Collection = {collectionName:name,restaurants:[]}
-        const newCol:Collection = {colId:newId,collectionName:name,restaurants:[]}
-        this.collections.push(newCol)
-        console.info(this.collections)
+        if(data){
+          const name:string = data['colName']
+          const newId = this.svc.generateUUID() 
+          const newCol:Collection = {colId:newId,collectionName:name,restaurants:[]}
+          this.collections.push(newCol)
+          console.info(this.collections)
+          this.collectionsEmpty= false
+        }else{
+          console.log('no new collection is created');
+        }
       }
     )
   }
@@ -127,7 +140,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   }
 
   save(){
-    const saved = this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    this.apiSvc.saveCollection(this.authSvc.currentUser.id)
   }
   
   openDialogWithRef(ref: TemplateRef<any>) {

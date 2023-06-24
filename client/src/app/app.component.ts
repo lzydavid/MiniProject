@@ -32,19 +32,20 @@ export class AppComponent implements OnInit{
             this.authSvc.currentUser=acc
             this.authSvc.isLoggedIn=true
             this.isLoggedIn=true
-
-            this.apiSvc.getUserCollections(acc.id).then(
-              (col)=>{
-                this.svc.userCollection=col
-              }
-            )
           }
         }
       )
     }
-    console.info('>>> app.component: ',this.authSvc.currentUser)
 
-    console.info(">>> app.component isLoggedIn:"  + this.isLoggedIn)
+    if(this.isLoggedIn){
+      const col = await this.apiSvc.getUserCollections(this.authSvc.currentUser.id)
+        
+      this.svc.userCollection=col
+    }
+
+    console.info('>>> app.component current user:',this.authSvc.currentUser)
+    console.info(">>> app.component isLoggedIn: "  + this.isLoggedIn)
+    console.info(">>> app.component col: ",this.svc.userCollection)
   }
 
   logout(){

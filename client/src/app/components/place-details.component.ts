@@ -17,15 +17,17 @@ export class PlaceDetailsComponent implements OnInit {
   checkIcon = "../../assets/icons/check-mark.png"
 
 
-  constructor(private generalSvc:SvcService,private serverSvc:ServerApiService) {}
+  constructor(private generalSvc:SvcService,private serverSvc:ServerApiService) {
+
+    this.place = generalSvc.restaurantSelectedToView
+  }
 
   async ngOnInit() {
     
-    this.place = this.generalSvc.restaurantSelectedToView
-
     const result = await this.serverSvc.getRestaurantDetails(this.place.placeId)
 
     this.placeDetails = result
+    console.info('>>> place detail: ',this.placeDetails)
   }
 
   getGoogleMapUrl(placeId:string):string {

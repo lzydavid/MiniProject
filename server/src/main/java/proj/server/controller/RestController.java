@@ -133,9 +133,10 @@ public class RestController {
             System.out.println(userCollection);
         }
 
-        colSvc.saveCollections(collections, id);
+        Boolean updateSuccess = colSvc.saveCollections(collections, id);
+        JsonObject body = Json.createObjectBuilder().add("status", updateSuccess).build();
         
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(body.toString());
     }
 
     @GetMapping(path = "/acc",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -150,16 +151,19 @@ public class RestController {
 
     @GetMapping(path = "/col",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getUserCollections(@RequestParam String id){
+
+        System.out.println("GET Col"+id);
         
         Optional<List<UserCollection>> opt = colSvc.retrieveCollections(id);
 
         if(opt.isPresent()){
             List<UserCollection> collections = opt.get();
-             JsonArrayBuilder arrBld = Json.createArrayBuilder();
+
+            System.out.println(collections);
+            JsonArrayBuilder arrBld = Json.createArrayBuilder();
             for (UserCollection uc : collections) {
             arrBld.add(uc.toJSON());
             }
-       
             return ResponseEntity.ok(arrBld.build().toString());
         }
         return ResponseEntity.noContent().build();
