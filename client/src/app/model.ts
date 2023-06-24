@@ -167,6 +167,10 @@ export const restaurants:Restaurant[] = [
 
 ]
 
+export const restaurantExample:Restaurant ={
+  name:'Putien',address:'1 Jurong West Central 2, #02-34 Jurong Point, Singapore 648886',rating:4.8,priceLevel:2,photoRef:'',placeId:'ChIJy64vxOwP2jERIp3kxn84fJM'
+}
+
 export const BookmarkedRestaurants:Restaurant[] = [
     {name:'Time Table Cafe 研磨时光咖啡',address:'Jurong West Street 41, #01-726 Block 456, Singapore 640456',rating:4.1,priceLevel:2,photoRef:'AZose0nNPoE8N3bR2zycUl7WQxlNZnkePRSHkgL9NFNEc83wq0EU7-rJAcVHXbj8PL59ie_qVr4_hMTaGfltZKboMWRngJMNH_BGJqiyjbPKyYPwFD6vibsdr8jlNecd3b9fCsmB3wQDW77j6AbPRiTFuaWJGTH2d171F9cT8PGUpbAyKLvE',placeId:'ChIJ9ep2u6IP2jERs37XyaPiiI4'},
 

@@ -22,7 +22,7 @@ export class SavedResultComponent implements OnDestroy {
   async ngOnDestroy() {
 
     this.svc.userCollection = this.collections
-    await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    const saved = await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
   }
 
   removeFromCol(c:Collection,r:Restaurant) {

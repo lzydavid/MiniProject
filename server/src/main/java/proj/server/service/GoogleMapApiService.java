@@ -107,8 +107,6 @@ public class GoogleMapApiService {
         
         response.close();
 
-        System.out.println(responseBody);
-
         return Utils.getResult(responseBody);
     }
 
@@ -137,8 +135,6 @@ public class GoogleMapApiService {
         String responseBody = response.body().string();
         
         response.close();
-
-        System.out.println(responseBody);
 
         return Utils.getResult(responseBody);
     }

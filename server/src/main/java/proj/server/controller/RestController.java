@@ -39,7 +39,7 @@ import proj.server.service.UserCollectionService;
 
 @Controller
 @RequestMapping(path = "/api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class RestController {
 
     @Autowired

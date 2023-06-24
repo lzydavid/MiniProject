@@ -1,18 +1,18 @@
 body{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .navgation{
     align-items: center;
-    color: black;  
 }
 
 .con{
     display: flex;
     justify-content: space-between;
     gap: 200px;
-    padding: 30px;
+    padding: 10px;
 }
 
 .login{
@@ -22,13 +22,29 @@ body{
 
 
 main{
-    margin-top: 80px;
+    margin-top: 60px;
+    height: 100%;
+    background-color: azure;
+    border-style: solid;
+    overflow:auto;
+    padding-bottom:150px;
 }
 
 header{
-    background-color: black;
+    background-color: #FFD966;
 }
 .navbar{
-    padding: 20px;
+    padding: 10px;
+    background-color: #FFD966;
 }
+
+.footer {
+    position: relative;
+    
+    clear:both;
+    padding-top:20px;
+    background-color: #FFD966;
+  } 
+
+
 

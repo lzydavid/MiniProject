@@ -127,7 +127,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   }
 
   save(){
-    this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    const saved = this.apiSvc.saveCollection(this.authSvc.currentUser.id)
   }
   
   openDialogWithRef(ref: TemplateRef<any>) {

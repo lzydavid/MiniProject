@@ -33,33 +33,33 @@ export class SearchComponent implements OnInit {
   async onSubmit(){
     if(this.useCurrentLoc){
       const query = this.form.value['query']
-      await this.apiSvc.getResultFromSearchNearBy(query,this.latitude,this.longitude).then(
-        result=>{
-          console.info('search result: ',result)
-          this.svc.restaurants = result.results
-          this.svc.nextPageToken = result.nextPageToken
-        }
-      ).then(
-        ()=>{
-          this.router.navigate(['/result'])
-        }
-      )
+      const result = await this.apiSvc.getResultFromSearchNearBy(query,this.latitude,this.longitude)
+      
+      this.svc.restaurants = result.results
+      this.svc.nextPageToken = result.nextPageToken
 
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      console.info('>>> svc.res:',this.svc.restaurants)
+      this.router.navigate(['/result'])        
+     
     }else{
       const query = this.form.value['query']
-      const location = this.form.value['location'] || this.selectedLoc
+      const location = this.form.value['location']
       console.info('>>>Form '+ query + location)
-      await this.apiSvc.getResultFromSearch(query,location).then(
-        result=>{
-          console.info('search result: ',result)
-          this.svc.restaurants = result.results
-          this.svc.nextPageToken = result.nextPageToken
-        }
-      ).then(
-        ()=>{
-          this.router.navigate(['/result'])
-        }
-      )
+      
+      const result = await this.apiSvc.getResultFromSearch(query,location)
+        
+      this.svc.restaurants = result.results
+      this.svc.nextPageToken = result.nextPageToken
+
+      await new Promise((resolve) => setTimeout(resolve, 0));
+
+      console.info('>>> svc.res:',this.svc.restaurants)
+
+      
+
+      this.router.navigate(['/result'])
     }
   }
 

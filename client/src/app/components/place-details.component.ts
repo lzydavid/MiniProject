@@ -1,8 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { PlaceDetails ,Restaurant,placeDetailsExample } from '../model';
-import {IWebsite } from '../icon'
+import { PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample } from '../model';
 
 @Component({
   selector: 'app-place-details',
