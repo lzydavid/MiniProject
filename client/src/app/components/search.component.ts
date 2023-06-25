@@ -45,11 +45,9 @@ export class SearchComponent implements OnInit {
      
     }else{
       const query = this.form.value['query']
-      const location = this.form.value['location']
-      console.info('>>>Form '+ query + location)
+      console.info('>>>Form '+ query)
       
-      const result = await this.apiSvc.getResultFromSearch(query,location)
-        
+      const result = await this.apiSvc.getResultFromSearch(query)
       this.svc.restaurants = result.results
       this.svc.nextPageToken = result.nextPageToken
 
@@ -65,8 +63,7 @@ export class SearchComponent implements OnInit {
 
   createForm(){
     return this.fb.group({
-      query:this.fb.control<string>('',[Validators.required]),
-      location:this.fb.control<string>('')
+      query:this.fb.control<string>('',[Validators.required])
     })
   }
 

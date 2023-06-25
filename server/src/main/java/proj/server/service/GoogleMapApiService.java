@@ -83,13 +83,14 @@ public class GoogleMapApiService {
         return Utils.getPlaceDetails(resp.getBody());
     }
 
-    public TextSearchResults googleMapTextSearchOkHttp(String query,String location) throws IOException {
+    public TextSearchResults googleMapTextSearchOkHttp(String query) throws IOException {
 
-        String q = query.trim() + " in " + location.trim() + ",Singapore";
-        System.out.println(q);
+        //String q = query.trim() + " in " + location.trim() + ",Singapore";
 
         HttpUrl.Builder urlBuilder = HttpUrl.parse(GOOGLEMAP_TEXT_SEARCH).newBuilder();
-        urlBuilder.addQueryParameter("query", q).addQueryParameter("key", API_KEY);
+        urlBuilder.addQueryParameter("query", query)
+            .addQueryParameter("key", API_KEY)
+            .addQueryParameter("region", "sg");
 
         String url = urlBuilder.build().toString();
 

@@ -50,9 +50,9 @@ public class RestController {
     private UserCollectionService colSvc;
     
     @GetMapping(path = "/search",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> restaurantSearch(@RequestParam String query,@RequestParam String location) throws IOException {
+    public ResponseEntity<String> restaurantSearch(@RequestParam String query) throws IOException {
 
-        TextSearchResults result = svc.googleMapTextSearchOkHttp(query,location);
+        TextSearchResults result = svc.googleMapTextSearchOkHttp(query);
 
         // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());

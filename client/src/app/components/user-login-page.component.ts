@@ -9,6 +9,8 @@ import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { UrlService } from '../service/url.service';
 import { SvcService } from '../service/svc.service';
+import { MatLegacyButtonModule} from '@angular/material/legacy-button'
+
 
 @Component({
   selector: 'app-user-login-page',
@@ -24,18 +26,21 @@ export class UserLoginPageComponent implements OnInit{
   LoginStatus!:boolean
   LoginMessage!:string
   signUp:boolean = false
+  isLoggedIn=false
 
   constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router,private urlSvc:UrlService,private svc:SvcService){
-
+    this.authSvc.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   ngOnInit(): void {
     this.LoginForm=this.createLoginForm()
+    this.RegisterForm=this.createRegisterForm()
   }
 
   signup(){
     this.signUp=!this.signUp
-    this.RegisterForm=this.createRegisterForm()
   }
 
   onSubmitReg(){
@@ -74,22 +79,28 @@ export class UserLoginPageComponent implements OnInit{
     }
     
     await this.authSvc.login(userCredentials).then(
-      ()=>{
+      (message)=>{
       
-        if(this.svc.restaurants){
-          this.router.navigate(['/result'])
+        if(this.isLoggedIn==true){
+          if(this.svc.restaurants){
+            this.router.navigate(['/result'])
+          }
+          else{
+            this.router.navigate(['/'])
+          }
         }
         else{
-          this.router.navigate(['/'])
+          alert(message)
         }
+        
       }
     )
   }
 
   createLoginForm(){
     return this.fb.group({
-      email:this.fb.control<string>('ilea@gmail.com',[Validators.required,Validators.email]),
-      password:this.fb.control<string>('123456',[Validators.required,Validators.minLength(8)]),
+      email:this.fb.control<string>('',[Validators.required,Validators.email]),
+      password:this.fb.control<string>('',[Validators.required,Validators.minLength(8)]),
     })
   }
 
@@ -104,12 +115,20 @@ export class UserLoginPageComponent implements OnInit{
 
   createRegisterForm(){
     return this.fb.group({
-      firstName:this.fb.control<string>('David',Validators.required),
-      lastName:this.fb.control<string>('Lee',Validators.required),
-      email:this.fb.control<string>('test@gmail.com',[Validators.required,Validators.email]),
-      password:this.fb.control<string>('12345678',[Validators.required,Validators.minLength(8)]),
-      confirmPassword:this.fb.control<string>('12345678',[Validators.required,Validators.minLength(8)]),
+      firstName:this.fb.control<string>('',Validators.required),
+      lastName:this.fb.control<string>('',Validators.required),
+      email:this.fb.control<string>('',[Validators.required,Validators.email]),
+      password:this.fb.control<string>('',[Validators.required,Validators.minLength(8)]),
+      confirmPassword:this.fb.control<string>('',[Validators.required,Validators.minLength(8)]),
     })
   }
 
+  getErrorMsg(){
+    const password = this.RegisterForm.value['password']
+    const confirmPassword = this.RegisterForm.value['confirmPassword']
+    if(password!==confirmPassword){
+      return 'Password does not match'
+    }
+    return 'must have at least 8 char'
+  }
 }

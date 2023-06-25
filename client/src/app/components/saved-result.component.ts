@@ -21,8 +21,10 @@ export class SavedResultComponent implements OnDestroy {
 
   async ngOnDestroy() {
 
-    this.svc.userCollection = this.collections
+    if(this.collections!=null){
+      this.svc.userCollection = this.collections
     const saved = await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    }
   }
 
   removeFromCol(c:Collection,r:Restaurant) {

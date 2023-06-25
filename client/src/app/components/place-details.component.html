@@ -5,20 +5,26 @@
             <div>
                 <h1> {{placeDetails.name}} </h1>
             </div>
-            <div>
+            <div class="align-self-center ms-2">
                 <p class="card-text">
                     <span [innerHTML]="placeDetails.rating | ratingIcon"></span>
                     <span *ngIf="place.rating>0"> {{place.rating}}</span>
                     <span>( {{placeDetails.numOfUserRating}}  ) </span>
                   </p>
             </div>
-            <div>
+            <div class="align-self-center ms-2">
                 <p class="card-text">
                     <span [innerHTML]="placeDetails.priceLevel| priceIcon"></span>
                 </p>
             </div>
-            <div *ngIf="placeDetails.openNow; else closed">
+            <div class="align-self-center ms-2" *ngIf="placeDetails.openNow; else closed">
                 Open Now
+            </div>
+            <div>
+                <button  mat-fab color="accent" class="button">
+                    <mat-icon>bookmark</mat-icon>
+                   
+                  </button>
             </div>
         </div>
        </mat-card-header>
@@ -162,7 +168,9 @@
     </div>
 </mat-card>
 <ng-template #closed>
-    <p>Closed</p>
+    <div class="align-self-center ms-2">
+        Closed
+    </div>
 </ng-template>
 
 <ng-template #checked>

@@ -62,7 +62,7 @@
             <mat-card-header>
               <div>
                 <mat-card-subtitle>
-                  search result: {{restaurants.length}}
+                  search result: {{nextPageToken? restaurants.length + ' +':restaurants.length}}
                 </mat-card-subtitle>
               </div>
             </mat-card-header>
