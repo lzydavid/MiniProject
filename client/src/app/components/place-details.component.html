@@ -1,36 +1,40 @@
 <mat-card>
     <div class="container mb-3 d-flex flex-column">
-       <mat-card-header>
-        <div class="d-flex justify-content-start mt-2">
-            <div>
-                <h1> {{placeDetails.name}} </h1>
-            </div>
-            <div class="align-self-center ms-2">
-                <p class="card-text">
-                    <span [innerHTML]="placeDetails.rating | ratingIcon"></span>
-                    <span *ngIf="place.rating>0"> {{place.rating}}</span>
-                    <span>( {{placeDetails.numOfUserRating}}  ) </span>
-                  </p>
-            </div>
-            <div class="align-self-center ms-2">
-                <p class="card-text">
-                    <span [innerHTML]="placeDetails.priceLevel| priceIcon"></span>
-                </p>
-            </div>
-            <div class="align-self-center ms-2" *ngIf="placeDetails.openNow; else closed">
-                Open Now
-            </div>
-            <div>
-                <button  mat-fab color="accent" class="button">
-                    <mat-icon>bookmark</mat-icon>
-                   
-                  </button>
-            </div>
+       <div>
+            <mat-card-header>
+            <div class="d-flex flex-row justify-content-between" style="width: 100%;">
+                <div class="d-flex flex-row">
+                    <div>
+                        <h1> {{placeDetails.name}} </h1>
+                    </div>
+                        <div class="align-self-center ms-2">
+                            <p class="card-text">
+                                <span [innerHTML]="placeDetails.rating | ratingIcon"></span>
+                                <span *ngIf="place.rating>0"> {{place.rating}}</span>
+                                <span>( {{placeDetails.numOfUserRating}}  ) </span>
+                            </p>
+                        </div>
+                        <div class="align-self-center ms-2">
+                            <p class="card-text">
+                                <span [innerHTML]="placeDetails.priceLevel| priceIcon"></span>
+                            </p>
+                        </div>
+                        <div class="align-self-center ms-2" *ngIf="placeDetails.openNow; else closed">
+                            Open Now
+                        </div>
+                    </div>
+                    <div>
+                        <button  mat-fab color="white" class="button">
+                            <mat-icon>bookmark</mat-icon>
+                        </button>
+                    </div>
+                </div>
+           </mat-card-header>
+       </div>
+        <div class="ms-2 slider">
+            <app-img-slider [slides]="imgsliderImg"></app-img-slider>
         </div>
-       </mat-card-header>
-        <div>
-            <img src="https://placehold.co/600x400" alt="">
-        </div>
+        
         <mat-card-content>
             <div class="row">
                 <div class="col-6">

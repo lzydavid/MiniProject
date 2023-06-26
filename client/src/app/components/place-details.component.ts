@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Collection, PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample } from '../model';
+import { Collection, PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample,imgsliderImg, imgsliderImgplaceholder } from '../model';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -17,6 +17,8 @@ export class PlaceDetailsComponent implements OnInit {
   collections!:Collection[]
   isLoggedIn:boolean=false
   collectionsEmpty:boolean=true
+
+  imgsliderImg:string[] = imgsliderImgplaceholder
 
   checkIcon = "../../assets/icons/check-mark.png"
 

@@ -23,7 +23,7 @@ export class SavedResultComponent implements OnDestroy {
 
     if(this.collections!=null){
       this.svc.userCollection = this.collections
-    const saved = await this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    const saved = await this.apiSvc.saveCollection(this.authSvc.currentUser!.id)
     }
   }
 

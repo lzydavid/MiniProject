@@ -6,6 +6,7 @@ import { UserAccount } from './model';
 import { ServerApiService } from './service/server-api.service';
 import { SvcService } from './service/svc.service';
 import { Router,NavigationEnd } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -16,14 +17,17 @@ export class AppComponent implements OnInit,AfterViewInit{
 
   isLoggedIn!:boolean
   currentPage!:string
+  navForm!:FormGroup
 
-  constructor(private authSvc:AuthService,private apiSvc:ServerApiService,private svc:SvcService,private router:Router) {
+  constructor(private authSvc:AuthService,private apiSvc:ServerApiService,private svc:SvcService,private router:Router,private fb:FormBuilder) {
     this.authSvc.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
     });
   }
 
   async ngOnInit() {
+
+    this.navForm = this.createForm()
 
     const token = localStorage.getItem("token")
     if(token){
@@ -64,8 +68,33 @@ export class AppComponent implements OnInit,AfterViewInit{
 
   logout(){
     this.authSvc.isLoggedIn=false
+    this.authSvc.currentUser=null
     this.authSvc.updateLoggedStatus(false)
     localStorage.removeItem('token')
+    this.router.navigate(['/'])
   }
 
+  async onSubmit(){
+    
+    const query = this.navForm.value['query']
+    console.info('>>>Form '+ query)
+    
+    const result = await this.apiSvc.getResultFromSearch(query)
+    this.svc.restaurants = result.results
+    this.svc.nextPageToken = result.nextPageToken
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+
+    console.info('>>> navbar svc.res:',this.svc.restaurants)
+
+    
+
+    this.router.navigate(['/result'])
+  }
+
+  createForm(){
+    return this.fb.group({
+      query:this.fb.control<string>('',[Validators.required,Validators.minLength(8)])
+    })
+  }
 }

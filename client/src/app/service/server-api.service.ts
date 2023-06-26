@@ -15,7 +15,6 @@ export class ServerApiService {
   // private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
   private SERVER_API_URL = '/api'
 
-
   private headers = new HttpHeaders().set("Content-Type", "application/json; charset=utf-8");
 
   constructor(private httpClient:HttpClient,private svc:SvcService) {

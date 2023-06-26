@@ -11,7 +11,7 @@ import { ServerApiService } from './server-api.service';
 export class AuthService {
 
   isLoggedIn:boolean = false
-  currentUser!:UserAccount
+  currentUser!:UserAccount|null
 
   // private SERVER_API_URL = 'https://elastic-self-production.up.railway.app/api'
   private SERVER_API_URL = '/api'
@@ -37,13 +37,12 @@ export class AuthService {
     try{
       const resp = await lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
       const status:boolean = resp.status
-      console.info(status)
+      console.info('login status',status)
       if(status===true){
         const token = resp.token
         localStorage.setItem('token',token)
         this.isLoggedIn=true
         this.updateLoggedStatus(this.isLoggedIn)
-        return 'Login Success!'
       }
     }
     catch(error){
@@ -63,7 +62,7 @@ export class AuthService {
       )
 
       //get user collection
-      await this.apiSvc.getUserCollections(this.currentUser.id).then(
+      await this.apiSvc.getUserCollections(this.currentUser!.id).then(
         (col)=>{
           this.svc.userCollection=col
         }
@@ -71,6 +70,7 @@ export class AuthService {
     }
 
     console.info('After login success:',this.currentUser,this.svc.userCollection)
+    return 'Login Success!'
   } 
 
   getCurrentUserInfo():Promise<any>{

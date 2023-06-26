@@ -220,3 +220,13 @@ export const testCollections:Collection[] = [
   {colId:'3e3cf839',collectionName:'Cafe',restaurants:BookmarkedRestaurants},
   {colId:'1824e39b',collectionName:'Saved for Later',restaurants:BookmarkedRestaurants}
 ]
+
+export const imgsliderImg:string[]=[
+  'AZose0mxfSpb2BZITbWoCj8Ghga9KuxxywRzJaqnaSIdQ4RFLsIpU6c0HqO4di33WjLP4lKmnQDU6f9GEcsba87KCbSjf2_wYfiOpuzsNP4UC1OKXeGc7Ty1AVGFJeRnbGUs_mthtbo228PEFB8OB29YYO5PMAoXqtKf1jlJ2fHsV9fSDhhR',
+  'AZose0luqJ7HpleIIedfkIUVgA8vFxDKM1eVwJBfrKVgAl5VFUTPBM_rZ8rQ5ERry6o7vnPYXe-9FMlm-uivDgj9bollGjsPMAM7Ot3WgZ2jl6XCz_VocndLG9DoZt2kC3mw57yq893QrQH1H7N_Xg9nhJtcDGxsDQ58Dbw_g3nMEtQw69UO','AZose0kIffC7RYW-vDGMlS6cKiNfBGYyfKB60mKZ2GTTaLrXKapclGMEDE8TGJJknWmM8QGT-IdizND5d4nWjgMb3cuxiQclBCcYCviXCRIj3UhtjRD8YXQ1i6GbypKfoMZy5STbVQqft1IImjbfyBhs9MYJh7qqrTVCKwwmb8pqDVH7YSCe',
+  'AZose0kzZ_rOLvVfNz2MKXsokk4CQoQ8z40ruVyF71twpYebMpqiQ-75GBoUGQndLCyovghokz8BXqJgvdph-od4cYIL88YbgTesqaF7sdZ5HhuCiNlXWdLa8I9SUluram7kTN4AHm7qCEq6pKqUARFf-pI88N3wtpcbB3pF--8ACGO8LYNT','AZose0kNkQUZAPYYjgJGRA2_08PVmkRHEQumd_3ynvMeun8uEHN58Jh7GT27J8BsYiiu7jBqoE-AwVGhuI5eFnBI5H5ydwtbQg_b452AuaZB8kZqs4qYwS6oZNlZjWrutYwNhBpFOTHJ1uEy6QT4KvApC4hRo9DU7CldOvjIwXfPfQCJy08X'
+]
+
+export const imgsliderImgplaceholder:string[]=[
+  '../../assets/placeholder-image.jpg','../../assets/placeholder-image.jpg','../../assets/placeholder-image.jpg','../../assets/placeholder-image.jpg'
+]

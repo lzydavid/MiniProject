@@ -24,6 +24,7 @@ import { ProfileComponent } from './components/profile.component';
 import { CreateColDialogComponent } from './components/dialog/create-col-dialog.component';
 import { HttpInterceptorInterceptor } from './http-interceptor.interceptor';
 import { UrlService } from './service/url.service';
+import { ImgSliderComponent } from './components/img-slider.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { UrlService } from './service/url.service';
     AccountComponent,
     SavedResultComponent,
     ProfileComponent,
-    CreateColDialogComponent
+    CreateColDialogComponent,
+    ImgSliderComponent
   ],
   imports: [
     BrowserModule,

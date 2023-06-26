@@ -135,12 +135,12 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     this.svc.userCollection=this.collections
 
     if(this.authSvc.isLoggedIn){
-      this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+      this.apiSvc.saveCollection(this.authSvc.currentUser!.id)
     }
   }
 
   save(){
-    this.apiSvc.saveCollection(this.authSvc.currentUser.id)
+    this.apiSvc.saveCollection(this.authSvc.currentUser!.id)
   }
   
   openDialogWithRef(ref: TemplateRef<any>) {

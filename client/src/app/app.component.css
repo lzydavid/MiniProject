@@ -54,9 +54,14 @@ header{
     border: none;
     border-bottom: 1px solid black;
     outline: none;
-    width: 300px;
-    height: 30px;
+    width: 400px;
+    height: 40px;
     background-color: inherit;
+  }
+
+  .input-field-btn{
+    background-color: inherit;
+    border: none;
   }
   
   .input-field:focus {
