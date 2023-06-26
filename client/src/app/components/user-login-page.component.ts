@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 import { UrlService } from '../service/url.service';
 import { SvcService } from '../service/svc.service';
 import { MatLegacyButtonModule} from '@angular/material/legacy-button'
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class UserLoginPageComponent implements OnInit{
   signUp:boolean = false
   isLoggedIn=false
 
-  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router,private urlSvc:UrlService,private svc:SvcService){
+  constructor(private fb:FormBuilder,private apiSvc:ServerApiService,private matDialog:MatDialog,private authSvc:AuthService,private router:Router,private urlSvc:UrlService,private svc:SvcService,private location:Location){
     this.authSvc.isLoggedIn$.subscribe((isLoggedIn: boolean) => {
       this.isLoggedIn = isLoggedIn;
     });
@@ -82,12 +83,13 @@ export class UserLoginPageComponent implements OnInit{
       (message)=>{
       
         if(this.isLoggedIn==true){
-          if(this.svc.restaurants){
-            this.router.navigate(['/result'])
-          }
-          else{
-            this.router.navigate(['/'])
-          }
+          // if(this.svc.restaurants){
+          //   this.router.navigate(['/result'])
+          // }
+          // else{
+          //   this.router.navigate(['/'])
+          // }
+          this.location.back()
         }
         else{
           alert(message)

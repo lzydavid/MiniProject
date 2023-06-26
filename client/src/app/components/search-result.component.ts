@@ -123,6 +123,7 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     const idx = this.collections.findIndex(i => i.collectionName===c.collectionName)
     if(this.collections[idx].restaurants.find(i=>i.placeId===r.placeId)){
       console.info('already in collection')
+      alert('Already bookmarked')
     }else{
       this.collections[idx].restaurants.push(r)
     }
@@ -139,9 +140,9 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     }
   }
 
-  save(){
-    this.apiSvc.saveCollection(this.authSvc.currentUser!.id)
-  }
+  // save(){
+  //   this.apiSvc.saveCollection(this.authSvc.currentUser!.id)
+  // }
   
   openDialogWithRef(ref: TemplateRef<any>) {
     this.matdiaglog.open(ref);

@@ -18,7 +18,6 @@ export class ImgSliderComponent {
       ? this.slides.length - 1
       : this.currentIndex - 1;
 
-    
     this.currentIndex = newIndex;
   }
 
@@ -34,7 +33,6 @@ export class ImgSliderComponent {
   }
 
   getCurrentSlideUrl() {
-    console.info(this.currentIndex)
     return this.slides[this.currentIndex];
   }
 }

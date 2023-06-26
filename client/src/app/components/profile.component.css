@@ -1,0 +1,11 @@
+body{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid;
+}
+
+.card{
+    width: 50%;
+}

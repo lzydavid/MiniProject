@@ -24,9 +24,31 @@
                         </div>
                     </div>
                     <div>
-                        <button  mat-fab color="white" class="button">
+                        <button  mat-fab color="white" class="button" [matMenuTriggerFor]="menu" *ngIf="isLoggedIn; else pleaseLogginIn">
                             <mat-icon>bookmark</mat-icon>
-                        </button>
+                            <div>
+                              <mat-menu #menu="matMenu">
+                                <button mat-menu-item [matMenuTriggerFor]="collectionslist" *ngIf="!collectionsEmpty; else pleaseCreate">
+                                  <mat-icon>library_add</mat-icon>
+                                  <span>Add to Collection</span>
+                                </button>
+                                <button mat-menu-item (click)="openDialog()">
+                                  <mat-icon>create</mat-icon>
+                                  <span>Create new Collection</span>
+                                </button>
+                              </mat-menu>
+                              
+                              <mat-menu #collectionslist="matMenu">
+                                <div>
+                                  <mat-list role="list">
+                                    <mat-list-item *ngFor="let col of collections" role="listitem" (click)="addToCollection(col)">
+                                      {{col.collectionName}}
+                                    </mat-list-item>
+                                  </mat-list>
+                                </div>
+                              </mat-menu>
+                            </div>
+                          </button>
                     </div>
                 </div>
            </mat-card-header>
@@ -179,4 +201,26 @@
 
 <ng-template #checked>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+</ng-template>
+
+<ng-template #pleaseCreate>
+    <div class="create">
+      <mat-icon>add_alert</mat-icon>
+      <span>Please create a new Collection</span>
+      <br>
+    </div>
+</ng-template>
+
+<ng-template #pleaseLogginIn>
+  <button mat-fab color="accent" type="button" (click)="openDialogWithRef(firstDialog)">
+    <mat-icon>bookmark</mat-icon>
+  </button>
+</ng-template>
+
+<ng-template #firstDialog>
+  <p matDialogContent>Please Login First to Add</p>
+  <mat-dialog-actions align="end">
+    <button mat-button matDialogClose>Dismiss</button>
+    <button mat-button [routerLink]="['/login']" matDialogClose >Login</button>
+  </mat-dialog-actions>
 </ng-template>
