@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {lastValueFrom} from 'rxjs'
+import {firstValueFrom, lastValueFrom} from 'rxjs'
 import { Collection, PlaceDetails, RegisterResult, UserAccount, UserCredentials,testCollections } from '../model';
 import { FormGroup } from '@angular/forms';
 import { SvcService } from './svc.service';
@@ -57,7 +57,7 @@ export class ServerApiService {
 
     const url = this.SERVER_API_URL + '/search/' + placeId
 
-    return lastValueFrom(this.httpClient.get<PlaceDetails>(url))
+    return firstValueFrom(this.httpClient.get<PlaceDetails>(url))
   }
 
   registerNewAccount(newUserAcc:UserAccount) :Promise<RegisterResult> {

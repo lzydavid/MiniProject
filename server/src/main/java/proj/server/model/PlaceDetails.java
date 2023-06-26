@@ -39,6 +39,7 @@ public class PlaceDetails {
     private Boolean servesWine;
     private Boolean servesVegetarianFood;
     private List<Reviews> reviews;
+    private List<String> photos;
 
     public JsonObject toJSON() {
 
@@ -126,6 +127,14 @@ public class PlaceDetails {
                 .toList())
                 .build();
             objBld.add("reviews", reviews);
+        }
+
+        if(getPhotos()!=null){
+            JsonArrayBuilder photoArr = Json.createArrayBuilder();
+            for (String str : getPhotos()) {
+                photoArr.add(str);
+            }
+            objBld.add("photos", photoArr.build());
         }
 
 

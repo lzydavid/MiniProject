@@ -10,8 +10,8 @@
                         <div class="align-self-center ms-2">
                             <p class="card-text">
                                 <span [innerHTML]="placeDetails.rating | ratingIcon"></span>
-                                <span *ngIf="place.rating>0"> {{place.rating}}</span>
-                                <span>( {{placeDetails.numOfUserRating}}  ) </span>
+                                <span *ngIf="place.rating>0"> {{place.rating |number:'1.1-1'}}</span>
+                                <span *ngIf="placeDetails.numOfUserRating">( {{placeDetails.numOfUserRating}}  ) </span>
                             </p>
                         </div>
                         <div class="align-self-center ms-2">

@@ -9,7 +9,7 @@ export class googleImgPipe implements PipeTransform{
 
     private key = '?key=AIzaSyAKs4xwjpdFmZUq1dc8wbUeEDrcH4a14lg';
 
-    private param = '&maxwidth=300';
+    private param = '&maxwidth=800';
 
     transform(value: string):string{
 

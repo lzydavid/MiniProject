@@ -87,9 +87,15 @@ export class AppComponent implements OnInit,AfterViewInit{
 
     console.info('>>> navbar svc.res:',this.svc.restaurants)
 
-    
+    if (this.currentPage === '/result') {
+      this.router.navigateByUrl('/dummy', { skipLocationChange: true }).then(() => {
+        this.router.navigateByUrl('/result');
+      });
+    } else {
+      this.router.navigate(['/result']);
+    }
 
-    this.router.navigate(['/result'])
+    this.navForm.reset()
   }
 
   createForm(){

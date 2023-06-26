@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Collection, PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample,imgsliderImg, imgsliderImgplaceholder } from '../model';
+import { Collection, PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample } from '../model';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -18,21 +18,35 @@ export class PlaceDetailsComponent implements OnInit {
   isLoggedIn:boolean=false
   collectionsEmpty:boolean=true
 
-  imgsliderImg:string[] = imgsliderImgplaceholder
+  imgsliderImg:string[] = []
 
   checkIcon = "../../assets/icons/check-mark.png"
 
   constructor(private generalSvc:SvcService,private serverSvc:ServerApiService,private authSvc:AuthService) {
 
-    this.place = restaurantExample
+    this.place = generalSvc.restaurantSelectedToView
   }
 
-  async ngOnInit() {
-    
-    //const result = await this.serverSvc.getRestaurantDetails(this.place.placeId)
+  ngOnInit() {
 
-    this.placeDetails = placeDetailsExample
-    console.info('>>> place detail: ',this.placeDetails)
+    console.info('place detail place id: ',this.place.placeId)
+    
+    this.serverSvc.getRestaurantDetails(this.place.placeId).then(
+    result =>{
+
+      console.info('place detail result: ',result)
+      this.placeDetails = result
+      console.info('place detail details: ',this.placeDetails)
+
+      this.imgsliderImg.push(this.place.photoRef);
+      for (let i = 0; i < this.placeDetails.photos.length; i++) {
+      
+        this.imgsliderImg.push(this.placeDetails.photos[i]);
+      }
+
+      console.info('>>> place detail oninit: ',this.place,this.placeDetails,this.imgsliderImg)
+    }
+   )
   }
 
   getGoogleMapUrl(placeId:string):string {

@@ -206,8 +206,21 @@ public class Utils {
                     reviews.add(r);
                 }
             }
+
             p.setReviews(reviews);
 
+            List<String> photos = new ArrayList<>();
+            if(results.containsKey("photos")){
+                JsonArray photoArr = results.getJsonArray("photos");
+                for (int i = 0; i < 5; i++) {
+                    JsonObject o = photoArr.getJsonObject(i);
+                    String photoStr = o.getString("photo_reference");
+                    photos.add(photoStr);
+                }
+            }
+            p.setPhotos(photos);
+
+            
             return p;
         }
     }
