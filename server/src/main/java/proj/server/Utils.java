@@ -81,7 +81,7 @@ public class Utils {
         }
 
         String opt= o.getString("business_status");
-        System.out.println("Business status: "+o.getString("name")+opt);
+        // System.out.println("Business status: "+o.getString("name")+opt);
         if(opt.equalsIgnoreCase("OPERATIONAL")){
             r.setOperational(true);
         }else{

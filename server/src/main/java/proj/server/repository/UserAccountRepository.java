@@ -16,11 +16,15 @@ public class UserAccountRepository {
 
     private static final String INSERT_NEWACCOUNT_SQL = "insert into accounts(id,email,password,firstName,lastName) select ?,?,?,?,? where not exists (select * from accounts where email = ?)";
 
-    private static final String RETRIEVE_ACCOUNT_SQL = "select * from accounts where email = ?";
+    private static final String RETRIEVE_ACCOUNT_BY_EMAIL_SQL = "select * from accounts where email = ?";
+
+    private static final String RETRIEVE_ACCOUNT_BY_ID_SQL = "select * from accounts where id = ?";
 
     private static final String CHECK_ACCOUNT_EXIST_SQL = "select count(*) from accounts where email = ?";
     
     private static final String CHECK_CREDENTIAL_EXIST_SQL = "select count(*) from accounts where email = ? and password = ?;";
+
+    private static final String UPDATEACCOUNT_SQL = "update accounts set email = ?, password = ? ,firstName = ?, lastName = ? where id = ?;";
 
     @Autowired
     private JdbcTemplate template;
@@ -57,10 +61,10 @@ public class UserAccountRepository {
         return false;
     }
 
-    public Optional<UserAccount> retrieveAccount(String email){
+    public Optional<UserAccount> retrieveAccountByEmail(String email){
 
         try{
-            UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_SQL, new AccountRowMapper(), email);
+            UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_BY_EMAIL_SQL, new AccountRowMapper(), email);
 
             return Optional.of(account);
         }
@@ -68,5 +72,25 @@ public class UserAccountRepository {
             return Optional.empty();
         }
     }
+
+    public UserAccount retrieveAccountById(String id){
+
+        UserAccount account = template.queryForObject(RETRIEVE_ACCOUNT_BY_ID_SQL, new AccountRowMapper(), id);
+
+        return account;
+    }
+
+    public boolean updateUserAccount(UserAccount acc) {
+
+        int update = template.update(UPDATEACCOUNT_SQL,acc.getEmail(),acc.getPassword(),acc.getFirstName(),acc.getLastName(),acc.getId());
+
+        if(update>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
 }

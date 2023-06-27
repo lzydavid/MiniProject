@@ -101,8 +101,6 @@ public class GoogleMapApiService {
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
         Response response = call.execute();
-        System.out.println(response.body().toString());
-
 
         String responseBody = response.body().string();
         
@@ -130,8 +128,6 @@ public class GoogleMapApiService {
         Request request = new Request.Builder().url(url).build();
         Call call = client.newCall(request);
         Response response = call.execute();
-        System.out.println(response.body().toString());
-
 
         String responseBody = response.body().string();
         

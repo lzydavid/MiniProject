@@ -45,7 +45,7 @@ public class UserAccountService {
 
     public JsonObject retrieveAccount(String email){
         
-        Optional<UserAccount> opt = repo.retrieveAccount(email);
+        Optional<UserAccount> opt = repo.retrieveAccountByEmail(email);
 
         if(opt.isEmpty()){
             return Json.createObjectBuilder()
@@ -79,4 +79,51 @@ public class UserAccountService {
         }
     }
 
+    public JsonObject updateUserAccount(UserAccount acc) {
+
+        UserAccount oldRecord = repo.retrieveAccountById(acc.getId());
+
+        if(acc.getEmail().equalsIgnoreCase(oldRecord.getEmail())){
+
+            boolean accountUpdated = repo.updateUserAccount(acc);
+
+            if(accountUpdated){
+                return Json.createObjectBuilder()
+                    .add("status", true)
+                    .add("message", "Account Updated Successfully")
+                    .build();
+            }else{
+                return Json.createObjectBuilder()
+                    .add("status", false)
+                    .add("message", "Something Went Wrong Try Again")
+                    .build();
+            }
+        }else{
+
+            //check if new email is unique
+            boolean emailExist = repo.checkIfAccountExist(acc.getEmail());
+
+            if(!emailExist){
+
+                boolean accountUpdated = repo.updateUserAccount(acc);
+
+                if(accountUpdated){
+                    return Json.createObjectBuilder()
+                    .add("status", true)
+                    .add("message", "Account Updated Successfully")
+                    .build();
+                }else{
+                    return Json.createObjectBuilder()
+                    .add("status", false)
+                    .add("message", "Something Went Wrong Try Again")
+                    .build();
+                }
+            }else{
+                return Json.createObjectBuilder()
+                    .add("status", false)
+                    .add("message", "Email Already Existed")
+                    .build();
+            }
+        }
+    }
 }

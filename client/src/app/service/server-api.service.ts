@@ -62,11 +62,20 @@ export class ServerApiService {
 
   registerNewAccount(newUserAcc:UserAccount) :Promise<RegisterResult> {
 
-    const url = this.SERVER_API_URL +'/register'
+    const url = this.SERVER_API_URL +' /register'
 
     const body = JSON.stringify(newUserAcc)
 
     return lastValueFrom(this.httpClient.post<RegisterResult>(url,body,{headers:this.headers}))
+  }
+
+  updateUserAccount(userAccount:UserAccount):Promise<any> {
+
+    const url = this.SERVER_API_URL + '/update'
+
+    const body = JSON.stringify(userAccount)
+
+    return firstValueFrom(this.httpClient.put(url,body,{headers:this.headers}))
   }
 
   getUserCollections(userId:string):Promise<Collection[]>{

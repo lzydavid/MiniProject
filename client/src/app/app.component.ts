@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit,AfterViewInit{
 
   isLoggedIn!:boolean
-  currentPage!:string
+  currentPage:string ='/'
   navForm!:FormGroup
 
   constructor(private authSvc:AuthService,private apiSvc:ServerApiService,private svc:SvcService,private router:Router,private fb:FormBuilder) {

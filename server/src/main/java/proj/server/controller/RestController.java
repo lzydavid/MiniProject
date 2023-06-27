@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,12 +127,21 @@ public class RestController {
         }
     }
 
+    @PutMapping(path = "/update",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUserAccount(@RequestBody UserAccount acc){
+
+        JsonObject result = accSvc.updateUserAccount(acc);
+        
+        return ResponseEntity.ok(result.toString());
+    }
+
+
     @PostMapping(path = "/save",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveCollections(@RequestBody UserCollection[] collections,@RequestParam String id){
 
-        for (UserCollection userCollection : collections) {
-            System.out.println(userCollection);
-        }
+        // for (UserCollection userCollection : collections) {
+        //     System.out.println(userCollection);
+        // }
 
         Boolean updateSuccess = colSvc.saveCollections(collections, id);
         JsonObject body = Json.createObjectBuilder().add("status", updateSuccess).build();
@@ -159,7 +169,7 @@ public class RestController {
         if(opt.isPresent()){
             List<UserCollection> collections = opt.get();
 
-            System.out.println(collections);
+            // System.out.println(collections);
             JsonArrayBuilder arrBld = Json.createArrayBuilder();
             for (UserCollection uc : collections) {
             arrBld.add(uc.toJSON());
@@ -169,4 +179,5 @@ public class RestController {
         return ResponseEntity.noContent().build();
     }
 
+    
 }

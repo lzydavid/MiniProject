@@ -2,6 +2,8 @@ import { Component,OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
 import { UserAccount } from '../model';
 import { FormBuilder,FormGroup, Validators } from '@angular/forms';
+import { ServerApiService } from '../service/server-api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,7 @@ export class ProfileComponent implements OnInit {
   enterPw:Boolean=false
   disableUpdate:boolean=true
 
-  constructor(private authSvc:AuthService,private fb:FormBuilder){
+  constructor(private authSvc:AuthService,private fb:FormBuilder,private apiSvc:ServerApiService,private router:Router){
 
     console.info(authSvc.currentUser)
     if(this.authSvc.currentUser!=null){
@@ -69,12 +71,41 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  onSubmit(){
+  async onSubmit(){
     if(this.pForm.value['oldPassword']!=this.pForm.value['oldPasswordCheck']){
       alert('Password does not match')
     }
     else{
       
+      if(this.pForm.value['oldPassword']!=this.currentUser.password){
+        alert('Wrong password Entered')
+      }else{
+        const newAcc:UserAccount = {
+          id:this.currentUser.id,
+          email:this.pForm.value['email'],
+          password:this.pForm.value['newPassword'],
+          firstName:this.pForm.value['firstName'],
+          lastName:this.pForm.value['lastName']
+        }
+
+        console.info(newAcc)
+
+        const result = await this.apiSvc.updateUserAccount(newAcc)
+
+        if(result.status==true){
+
+          alert(result.message)
+
+          this.authSvc.currentUser=null;
+          this.authSvc.isLoggedIn=false;
+          this.authSvc.updateLoggedStatus(false)
+          localStorage.removeItem('token')
+          this.router.navigate(['/'])
+
+        }else{
+          alert(result.message)
+        }
+      }
     }
   }
 }

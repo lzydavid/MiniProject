@@ -24,14 +24,15 @@ body{
 main{
     margin-top: 60px;
     height: 100%;
-    border: solid red;
     overflow:auto;
     padding-bottom:150px;
     
 }
 
 .router{
+    margin-top: 60px;
     height: 100%;
+    overflow: auto;
 }
 
 header{

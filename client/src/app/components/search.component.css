@@ -6,7 +6,6 @@ body{
     background-image: url(../../assets/SearchBgImg.jpeg);
     background-size: cover;
     background-position: center;
-    border: solid green;
 }
 
 .form-control{
