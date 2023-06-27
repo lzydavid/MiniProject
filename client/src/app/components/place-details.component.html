@@ -16,7 +16,7 @@
                         </div>
                         <div class="align-self-center ms-2">
                             <p class="card-text">
-                                <span [innerHTML]="placeDetails.priceLevel| priceIcon"></span>
+                                <span [innerHTML]="place.priceLevel| priceIcon"></span>
                             </p>
                         </div>
                         <div class="align-self-center ms-2" *ngIf="placeDetails.openNow; else closed">

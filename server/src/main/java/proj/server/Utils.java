@@ -212,7 +212,12 @@ public class Utils {
             List<String> photos = new ArrayList<>();
             if(results.containsKey("photos")){
                 JsonArray photoArr = results.getJsonArray("photos");
-                for (int i = 0; i < 5; i++) {
+
+                int NoOfPhotos = 5;
+                if(photoArr.size()<5){
+                    NoOfPhotos=photoArr.size();
+                }
+                for (int i = 0; i < NoOfPhotos; i++) {
                     JsonObject o = photoArr.getJsonObject(i);
                     String photoStr = o.getString("photo_reference");
                     photos.add(photoStr);

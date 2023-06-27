@@ -35,6 +35,13 @@ export class SavedResultComponent implements OnDestroy {
     )   
   }
 
+  deleteCol(c:Collection){
+
+    this.collections = this.collections.filter(col =>{
+      return col.colId !=c.colId
+    })
+  }
+
   onSelect(r:Restaurant) {
 
     this.svc.restaurantSelectedToView = r

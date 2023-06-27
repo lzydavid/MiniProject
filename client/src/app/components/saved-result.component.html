@@ -3,7 +3,16 @@
       <div class="colbox" *ngFor="let c of collections">
         <div class="card">
           <div class="card-title m-3">
-            <i>{{c.collectionName}}</i>
+            <div class="d-flex justify-content-between">
+              <div>
+                <h2><i>{{c.collectionName}}</i></h2>
+              </div>
+              <div>
+                <button mat-mini-fab color="primary" (click)="deleteCol(c)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
           </div>
           <div class="card-body" >
               <div class="row">
