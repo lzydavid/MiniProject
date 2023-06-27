@@ -79,6 +79,8 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
           }else{
             this.nextPageToken = null
           }
+
+          isQuerying = false;
         }
         this.cdr.detectChanges()
       }

@@ -41,9 +41,9 @@ export class PlaceDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
 
-    this.serverSvc.getRestaurantDetails(this.place.placeId).then(
+    await this.serverSvc.getRestaurantDetails(this.place.placeId).then(
     result =>{
 
       this.placeDetails = result

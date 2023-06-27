@@ -1,8 +1,6 @@
 package proj.server.controller;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import io.jsonwebtoken.Claims;
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import proj.server.JwtUtils;
@@ -55,7 +52,6 @@ public class RestController {
 
         TextSearchResults result = svc.googleMapTextSearchOkHttp(query);
 
-        // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 
@@ -64,7 +60,6 @@ public class RestController {
 
         TextSearchResults result = svc.googleMapTextSearchCurrLocOkHttp(query, Latitude, Longitude);
 
-        // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 
@@ -73,23 +68,19 @@ public class RestController {
         
         TextSearchResults result = svc.googleMapTextSearchNextPage(pagetoken);
 
-        // System.out.println(result);
         return ResponseEntity.ok().body(result.toJSON().toString());
     }
 
     @GetMapping(path = "/search/{placeId}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> placeDetailSearch(@PathVariable String placeId) throws IOException {
         PlaceDetails p = svc.googleMapPlaceDetailsSearch(placeId);
-        System.out.println(p);
         return ResponseEntity.ok().body(p.toJSON().toString());
     }
 
     @PostMapping(path = "/register",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> registerNewUser(@RequestBody UserAccount newAcc){
-        System.out.println(">>>> postmapping"+newAcc);
 
         JsonObject result = accSvc.registerAccount(newAcc);
-        System.out.println(result.toString());
 
         return ResponseEntity.ok(result.toString());
     }
@@ -97,13 +88,10 @@ public class RestController {
     @PostMapping(path = "/login",consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> login(@RequestBody UserCredentials user) throws Exception{
 
-        System.out.println(user);
-
         //check if acc exist in sql
         try {
             accSvc.LoginAccount(user);
             String token = JwtUtils.generateToken(user.getEmail(), user.getPassword());
-            System.out.println(token);
 
             JsonObject body = Json.createObjectBuilder()
                 .add("status", true)
@@ -162,14 +150,11 @@ public class RestController {
     @GetMapping(path = "/col",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getUserCollections(@RequestParam String id){
 
-        System.out.println("GET Col"+id);
-        
         Optional<List<UserCollection>> opt = colSvc.retrieveCollections(id);
 
         if(opt.isPresent()){
             List<UserCollection> collections = opt.get();
 
-            // System.out.println(collections);
             JsonArrayBuilder arrBld = Json.createArrayBuilder();
             for (UserCollection uc : collections) {
             arrBld.add(uc.toJSON());
