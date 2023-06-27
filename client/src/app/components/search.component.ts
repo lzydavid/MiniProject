@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
 import { MatAccordion } from '@angular/material/expansion';
-import { Region,Option } from '../model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
@@ -25,7 +24,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.createForm()
-    //console.info(this.svc.restaurants)
   }
 
   //store searched result in service
@@ -39,22 +37,16 @@ export class SearchComponent implements OnInit {
 
       await new Promise((resolve) => setTimeout(resolve, 0));
 
-      console.info('>>> svc.res:',this.svc.restaurants)
       this.router.navigate(['/result'])        
      
     }else{
       const query = this.form.value['query']
-      console.info('>>>Form '+ query)
       
       const result = await this.apiSvc.getResultFromSearch(query)
       this.svc.restaurants = result.results
       this.svc.nextPageToken = result.nextPageToken
 
       await new Promise((resolve) => setTimeout(resolve, 0));
-
-      console.info('>>> svc.res:',this.svc.restaurants)
-
-      
 
       this.router.navigate(['/result'])
     }
@@ -77,11 +69,8 @@ export class SearchComponent implements OnInit {
         (position) => {
           this.latitude = position.coords.latitude.toString()
           this.longitude = position.coords.longitude.toString()
-          console.log('Latitude:', this.latitude);
-          console.log('Longitude:', this.longitude);
         },
         (error) => {
-          // Handle error in retrieving current position
           console.error('Error getting current location:', error);
         }
       );

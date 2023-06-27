@@ -37,7 +37,6 @@ export class AuthService {
     try{
       const resp = await lastValueFrom(this.httpClient.post<any>(url,body,{headers:this.headers}))
       const status:boolean = resp.status
-      console.info('login status',status)
       if(status===true){
         const token = resp.token
         localStorage.setItem('token',token)
@@ -68,8 +67,6 @@ export class AuthService {
         }
       )
     }
-
-    console.info('After login success:',this.currentUser,this.svc.userCollection)
     return 'Login Success!'
   } 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef} from '@angular/core';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Collection, PlaceDetails ,Restaurant,placeDetailsExample,restaurantExample } from '../model';
+import { Collection, PlaceDetails ,Restaurant } from '../model';
 import { AuthService } from '../service/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
@@ -43,22 +43,16 @@ export class PlaceDetailsComponent implements OnInit {
 
   ngOnInit() {
 
-    console.info('place detail place id: ',this.place.placeId)
-    
     this.serverSvc.getRestaurantDetails(this.place.placeId).then(
     result =>{
 
-      console.info('place detail result: ',result)
       this.placeDetails = result
-      console.info('place detail details: ',this.placeDetails)
 
       this.imgsliderImg.push(this.place.photoRef);
       for (let i = 0; i < this.placeDetails.photos.length; i++) {
       
         this.imgsliderImg.push(this.placeDetails.photos[i]);
       }
-
-      console.info('>>> place detail oninit: ',this.place,this.placeDetails,this.imgsliderImg)
     }
    )
   }
@@ -83,7 +77,6 @@ export class PlaceDetailsComponent implements OnInit {
           const newId = this.generalSvc.generateUUID() 
           const newCol:Collection = {colId:newId,collectionName:name,restaurants:[]}
           this.collections.push(newCol)
-          console.info(this.collections)
           this.collectionsEmpty= false
         }else{
           console.log('no new collection is created');
@@ -99,12 +92,9 @@ export class PlaceDetailsComponent implements OnInit {
   addToCollection(c:Collection){
     const idx = this.collections.findIndex(i => i.collectionName===c.collectionName)
     if(this.collections[idx].restaurants.find(i=>i.placeId===this.place.placeId)){
-      console.info('already in collection')
       alert('Already bookmarked')
     }else{
       this.collections[idx].restaurants.push(this.place)
     }
-    console.info(this.collections)
   }
-
 }

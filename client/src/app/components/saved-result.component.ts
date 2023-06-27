@@ -1,5 +1,5 @@
 import { Component,OnDestroy } from '@angular/core';
-import { Restaurant,BookmarkedRestaurants, Collection } from '../model';
+import { Restaurant, Collection } from '../model';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
 import { AuthService } from '../service/auth.service';
@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class SavedResultComponent implements OnDestroy {
 
-  bookmarkedPlaces:Restaurant[] = BookmarkedRestaurants
   collections!:Collection[]
 
   constructor(private svc:SvcService,private apiSvc:ServerApiService,private authSvc:AuthService,private router:Router){

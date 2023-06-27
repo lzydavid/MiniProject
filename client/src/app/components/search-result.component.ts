@@ -2,13 +2,11 @@ import { Component, OnInit,OnDestroy, TemplateRef,ViewChild,AfterViewInit,Change
 import { Router } from '@angular/router';
 import { SvcService } from '../service/svc.service';
 import { ServerApiService } from '../service/server-api.service';
-import { Collection, Restaurant,restaurants } from '../model';
+import { Collection, Restaurant } from '../model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateColDialogComponent } from './dialog/create-col-dialog.component';
 import { AuthService } from '../service/auth.service';
 import { CdkVirtualScrollViewport , VIRTUAL_SCROLL_STRATEGY} from '@angular/cdk/scrolling'
-import { async, from } from 'rxjs';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -66,7 +64,6 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
       async ()=> {
         var items = this.viewport.getDataLength()
         var end = this.viewport.getRenderedRange().end
-        console.info('result size', items,'viewport end:',end)
         if(!isQuerying && end>=items && this.nextPageToken){
           isQuerying = true;
 
@@ -89,7 +86,6 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   }
 
   onSelectRes(r:Restaurant){
-    console.info(r)
     this.svc.restaurantSelectedToView = r
     this.router.navigate(['/details'])
   }
@@ -110,7 +106,6 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
           const newId = this.svc.generateUUID() 
           const newCol:Collection = {colId:newId,collectionName:name,restaurants:[]}
           this.collections.push(newCol)
-          console.info(this.collections)
           this.collectionsEmpty= false
         }else{
           console.log('no new collection is created');
@@ -122,12 +117,10 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
   addToCollection(c:Collection,r:Restaurant){
     const idx = this.collections.findIndex(i => i.collectionName===c.collectionName)
     if(this.collections[idx].restaurants.find(i=>i.placeId===r.placeId)){
-      console.info('already in collection')
       alert('Already bookmarked')
     }else{
       this.collections[idx].restaurants.push(r)
     }
-    console.info(this.collections)
   }
 
   //update the collection when leaving page
@@ -169,7 +162,6 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
     } else {
       this.filterPriceLvlInc = !this.filterPriceLvlInc;
     }
-    console.info(this.filterPriceLvlInc)
     this.sortRestaurantsByPrice()
   }
 

@@ -1,11 +1,8 @@
 import { HttpClient, HttpParams,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {firstValueFrom, lastValueFrom} from 'rxjs'
-import { Collection, PlaceDetails, RegisterResult, UserAccount, UserCredentials,testCollections } from '../model';
-import { FormGroup } from '@angular/forms';
+import { Collection, PlaceDetails, RegisterResult, UserAccount } from '../model';
 import { SvcService } from './svc.service';
-import { AuthService } from './auth.service';
-
 
 @Injectable({
   providedIn: 'root'

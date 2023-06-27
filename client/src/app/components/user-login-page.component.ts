@@ -55,9 +55,7 @@ export class UserLoginPageComponent implements OnInit{
       (result) => {
         this.RegStatus=result.status
         this.RegMessage=result.message
-        console.info(this.RegStatus)
-        console.info(this.RegMessage)
-
+ 
         if(this.RegStatus){
           const dialogConfig = new MatDialogConfig()
           dialogConfig.data = this.RegMessage

@@ -52,18 +52,12 @@ export class AppComponent implements OnInit,AfterViewInit{
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentPage = event.url;
-        console.info('current page: ', this.currentPage);
       }
     });
-
-    console.info('>>> app.component current user:',this.authSvc.currentUser)
-    console.info(">>> app.component isLoggedIn: "  + this.isLoggedIn)
-    console.info(">>> app.component col: ",this.svc.userCollection)
   }
 
   ngAfterViewInit(): void {
     var currPage = this.router.url
-    console.info(currPage)
   }
 
   logout(){
@@ -77,15 +71,12 @@ export class AppComponent implements OnInit,AfterViewInit{
   async onSubmit(){
     
     const query = this.navForm.value['query']
-    console.info('>>>Form '+ query)
-    
+
     const result = await this.apiSvc.getResultFromSearch(query)
     this.svc.restaurants = result.results
     this.svc.nextPageToken = result.nextPageToken
 
     await new Promise((resolve) => setTimeout(resolve, 0));
-
-    console.info('>>> navbar svc.res:',this.svc.restaurants)
 
     if (this.currentPage === '/result') {
       this.router.navigateByUrl('/dummy', { skipLocationChange: true }).then(() => {

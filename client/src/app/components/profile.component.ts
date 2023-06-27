@@ -19,12 +19,9 @@ export class ProfileComponent implements OnInit {
 
   constructor(private authSvc:AuthService,private fb:FormBuilder,private apiSvc:ServerApiService,private router:Router){
 
-    console.info(authSvc.currentUser)
     if(this.authSvc.currentUser!=null){
       this.currentUser = this.authSvc.currentUser
     }
-
-    console.info(this.currentUser)
   }
 
   ngOnInit(): void {
@@ -52,7 +49,6 @@ export class ProfileComponent implements OnInit {
       this.pForm.get('newPassword')?.hasError('required') ||
       this.pForm.get('newPassword')?.hasError('minlength')
     )
-    console.info(v)
     return v
   }
 
@@ -87,8 +83,6 @@ export class ProfileComponent implements OnInit {
           firstName:this.pForm.value['firstName'],
           lastName:this.pForm.value['lastName']
         }
-
-        console.info(newAcc)
 
         const result = await this.apiSvc.updateUserAccount(newAcc)
 
