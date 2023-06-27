@@ -35,15 +35,3 @@ CREATE TABLE collection_restaurant (
     CONSTRAINT collection_fk FOREIGN KEY (collection_id) REFERENCES collection (col_id),
     CONSTRAINT restaurant_fk FOREIGN KEY (restaurant_id) REFERENCES restaurants (place_id)
 );
-
-
-select * from accounts;
-
-insert into accounts(id,email,password,firstName,lastName) values("906bb9a6","dlee@gmail.com","123456","David","Lee");
-
-insert into accounts(id,email,password,firstName,lastName) select "0cac77c3","wsl@gmail.com","123456","Lindon","WeiShi"
-where not exists (select * from accounts where email = "wsl@gmail.com");
-
-select * from accounts where email = 'dle@gmail.com';
-
-select count(*) from accounts where email = 'dle@gmail.com';
