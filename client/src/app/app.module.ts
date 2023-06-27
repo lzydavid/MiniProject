@@ -14,7 +14,6 @@ import { UserLoginPageComponent } from './components/user-login-page.component';
 import { RegDialogComponent } from './components/dialog/reg-dialog.component';
 import { googleImgPipe } from './components/custom-pipes/googleImg.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LocationDialogComponent } from './components/dialog/location-dialog.component';
 import { safePipe } from './components/custom-pipes/safe.pipe';
 import { RatingIconPipe } from './components/custom-pipes/rating-icon.pipe';
 import { PriceIconPipe } from './components/custom-pipes/price-icon.pipe';
@@ -23,7 +22,6 @@ import { SavedResultComponent } from './components/saved-result.component';
 import { ProfileComponent } from './components/profile.component';
 import { CreateColDialogComponent } from './components/dialog/create-col-dialog.component';
 import { HttpInterceptorInterceptor } from './http-interceptor.interceptor';
-import { UrlService } from './service/url.service';
 import { ImgSliderComponent } from './components/img-slider.component';
 
 @NgModule({
@@ -32,18 +30,17 @@ import { ImgSliderComponent } from './components/img-slider.component';
     SearchComponent,
     SearchResultComponent,
     PlaceDetailsComponent,
-    UserLoginPageComponent,
     RegDialogComponent,
     googleImgPipe,
     safePipe,
-    LocationDialogComponent,
     RatingIconPipe,
     PriceIconPipe,
     AccountComponent,
     SavedResultComponent,
     ProfileComponent,
     CreateColDialogComponent,
-    ImgSliderComponent
+    ImgSliderComponent,
+    UserLoginPageComponent
   ],
   imports: [
     BrowserModule,
@@ -52,11 +49,10 @@ import { ImgSliderComponent } from './components/img-slider.component';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FontAwesomeModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,useClass:HttpInterceptorInterceptor,multi:true
-  },UrlService],
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

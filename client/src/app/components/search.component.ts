@@ -6,7 +6,6 @@ import { ServerApiService } from '../service/server-api.service';
 import { MatAccordion } from '@angular/material/expansion';
 import { Region,Option } from '../model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { LocationDialogComponent } from './dialog/location-dialog.component';
 
 @Component({
   selector: 'app-search',
@@ -65,18 +64,6 @@ export class SearchComponent implements OnInit {
     return this.fb.group({
       query:this.fb.control<string>('',[Validators.required])
     })
-  }
-
-   displayLocation(){
-    const dialogConfig = new MatDialogConfig()
-    dialogConfig.minWidth='500px'
-    const dialogRef = this.matDialog.open(LocationDialogComponent,dialogConfig)
-    dialogRef.afterClosed().subscribe(
-      (loc) =>{
-        this.selectedLoc = loc
-        console.info(this.selectedLoc)
-      }
-    )
   }
 
   toggleOption(){

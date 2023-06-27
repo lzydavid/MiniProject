@@ -150,16 +150,19 @@ export class SearchResultComponent implements OnInit, OnDestroy,AfterViewInit{
 
   toggleRating() {
 
+    this.filterPriceLvlInc = undefined
+
     if (this.filterRatingInc === null) {
       this.filterRatingInc = true;
     } else {
       this.filterRatingInc = !this.filterRatingInc;
     }
     this.sortRestaurantsByRating()
-    console.info(this.restaurants)
   }
 
   togglePrice() {
+
+    this.filterRatingInc=undefined
 
     if (this.filterPriceLvlInc === null) {
       this.filterPriceLvlInc = true;

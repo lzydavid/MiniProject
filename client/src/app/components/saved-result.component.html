@@ -15,8 +15,13 @@
                     <img src="" class="card-img-top">
                     <mat-card-content>
                       <p><small>{{r.address}} </small></p>
-                      <p [innerHTML]="r.rating |ratingIcon">  </p>
-                      <p>{{r.priceLevel}}</p>
+                      <p>
+                        <span [innerHTML]="r.rating | ratingIcon"></span>
+                        <span *ngIf="r.rating>0"> {{r.rating|number:'1.1-1'}} </span>
+                      </p>
+                      <p *ngIf="r.priceLevel>0" >
+                        <span [innerHTML]="r.priceLevel| priceIcon"></span>
+                      </p>
                     </mat-card-content>
                     <mat-card-actions>
                       <button mat-button (click)="removeFromCol(c,r)">Remove</button>
@@ -29,14 +34,3 @@
       </div>
   </div>
 </cdk-virtual-scroll-viewport>
-
-
-<!-- <div class="col-4" *ngFor="let r of c.restaurants">
-  <div class="card">
-      <img src="../../assets/placeholder-image.jpg" class="card-img-top">
-      <div class="card-body">
-        <h2 class="card-title">{{r.name}}</h2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div>
-    </div>
-</div> -->

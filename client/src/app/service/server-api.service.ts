@@ -62,7 +62,7 @@ export class ServerApiService {
 
   registerNewAccount(newUserAcc:UserAccount) :Promise<RegisterResult> {
 
-    const url = this.SERVER_API_URL +' /register'
+    const url = this.SERVER_API_URL + '/register'
 
     const body = JSON.stringify(newUserAcc)
 
