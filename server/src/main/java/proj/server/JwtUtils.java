@@ -11,13 +11,11 @@ import io.jsonwebtoken.security.Keys;
 
 public class JwtUtils {
     private static final String SECRET_KEY = "DOTA26627HOURSFAVOURITEHEROISORGEMAGIHIGHESTRANKDIVINE2";
-    private static final long EXPIRATION_TIME = 86400000; // 24 hours in milliseconds
+    private static final long EXPIRATION_TIME = 86400000;
 
     public static String generateToken(String email, String password) {
-        // Create a signing key using your secret key
         Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-        // Set the token claims (payload)
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", email);
         claims.put("password", password);
@@ -33,10 +31,8 @@ public class JwtUtils {
     }
 
     public static Claims decodeToken(String token) {
-        // Create a signing key using your secret key
         Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-        // Parse the JWT token and retrieve the claims (payload)
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

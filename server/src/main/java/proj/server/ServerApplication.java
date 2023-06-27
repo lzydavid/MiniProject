@@ -27,22 +27,6 @@ public class ServerApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		// String query = "cafe in Jurong West,Singapore";
-		// String encodedString = URLEncoder.encode(query, StandardCharsets.UTF_8);
-		// System.out.println(encodedString);
-		// TextSearchResults r = svc.googleMapTextSearch(encodedString);
-		// List<Restaurant> res = r.getRestaurants();
-		// System.out.println(res.size());
-		// for (Restaurant restaurant : res) {
-		// 	System.out.println(restaurant);
-		// }
-		// System.out.println(r.getNextPageToken());
-
-		// PlaceDetails p = svc.googleMapPlaceDetailsSearch("ChIJy64vxOwP2jERIp3kxn84fJM");
-		// System.out.println(p);
-
-		// String str = "11:30?AM???10:00?PM";
-		// System.out.println(str.replaceFirst("\\?", " ").replaceAll("\\?{3}", " - ").replaceAll("\\?", " "));
 
 	}
 
